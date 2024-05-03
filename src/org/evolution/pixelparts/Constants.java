@@ -24,7 +24,7 @@ public class Constants {
     public static final String KEY_CYCLE_COUNT = "cycle_count";
     public static final String NODE_TECHNOLOGY = "/sys/class/power_supply/battery/technology";
     public static final String NODE_STATUS = "/sys/class/power_supply/battery/status";
-    public static final String NODE_USB_TYPE = "/sys/class/power_supply/usb/usb_type";
+    public static final String NODE_USB_TYPE = "/sys/class/power_supply/usb/type";
     public static final String NODE_TEMPERATURE = "/sys/class/power_supply/battery/temp";
     public static final String NODE_CAPACITY = "/sys/class/power_supply/battery/capacity";
     public static final String NODE_CAPACITY_LEVEL = "/sys/class/power_supply/battery/capacity_level";
@@ -39,8 +39,8 @@ public class Constants {
     public static final String KEY_CHARGE_CONTROL = "charge_control";
     public static final String KEY_STOP_CHARGING = "stop_charging";
     public static final String KEY_START_CHARGING = "start_charging";
-    public static final String NODE_STOP_CHARGING = "/sys/devices/platform/google,charger/charge_stop_level";
-    public static final String NODE_START_CHARGING = "/sys/devices/platform/google,charger/charge_start_level";
+    public static final String NODE_STOP_CHARGING = "/sys/devices/platform/soc/soc:google,charger/charge_stop_level";
+    public static final String NODE_START_CHARGING = "/sys/devices/platform/soc/soc:google,charger/charge_start_level";
     public static final String DEFAULT_STOP_CHARGING = "100";
     public static final String DEFAULT_START_CHARGING = "0";
 
