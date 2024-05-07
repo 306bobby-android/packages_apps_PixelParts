@@ -66,31 +66,6 @@
     <string name="cycle_count_title">Cycle count</string>
     <string name="battery_cycle_count_footer">Due to quality inspections before shipping, the cycle count may not be zero on first use</string>
 
-    <!-- Charge control -->
-    <string name="charge_control_title">Charge control</string>
-    <string name="charge_control_summary">Control when the device stops and starts charging</string>
-    <string name="charge_control_main_switch_title">Use Charge control</string>
-    <string name="stop_charging_title">Stop charging level</string>
-    <string name="stop_charging_summary">Stop charging when the set percentage is reached</string>
-    <string name="start_charging_title">Start charging level</string>
-    <string name="start_charging_summary">Resume charging when the set percentage is reached</string>
-    <string name="stop_below_start_error">Stop level must be above start level!</string>
-    <string name="start_above_stop_error">Start level must be below stop level!</string>
-    <string name="charge_control_footer_summary">Charge control may interfere with adaptive charging.</string>
-
-    <!-- Pixel torch -->
-    <string name="pixel_torch_title">Pixel torch</string>
-    <string name="pixel_torch_summary">A configurable flashlight tile and volume button service</string>
-    <string name="pixel_torch_cycle_modes_title">Cycle modes</string>
-    <string name="pixel_torch_cycle_modes_summary">Cycle between predefined strength levels</string>
-    <string name="pixel_torch_state">State: %d</string>
-    <string name="pixel_torch_first_click_title">First click</string>
-    <string name="pixel_torch_second_click_title">Second click</string>
-    <string name="pixel_torch_third_click_title">Third click</string>
-    <string name="pixel_torch_button_service_title">Volume button service</string>
-    <string name="pixel_torch_button_service_summary">Toggle Pixel torch when pressing both volume buttons simultaneously</string>
-    <string name="pixel_torch_button_service_description">This accessibility service listens to key events, specifically volume up and down buttons, to toggle Pixel torch. This service does not collect any data from your device.\n\nEnabling the \"Hold Volume Key\" shortcut on this page will override the key event, causing the service to not work.\n\nThis service will not work when the screen is off while audio is playing (regardless of the output device).</string>
-
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatic HBM</string>
     <string name="auto_hbm_main_switch_title">Use automatic HBM</string>
@@ -106,12 +81,6 @@
     <string name="saturation_title">Saturation</string>
     <string name="saturation_summary">Control the saturation level of the display</string>
     <string name="saturation_footer_summary">Changing the color mode in display settings will override the saturation level, requiring it to be reapplied.</string>
-
-    <!-- Fast charge -->
-    <string name="fast_charge_title">Fast charge</string>
-    <string name="fast_charge_summary">Enable CDP mode for fast charging on USB 2.0 ports</string>
-    <string name="fast_charge_main_switch_title">Use Fast charge</string>
-    <string name="fast_charge_footer_summary">Caution: Not all USB 2.0 ports support CDP mode. For changes to take effect, disconnect and reconnect the device after enabling or disabling this mode.</string>
 
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>

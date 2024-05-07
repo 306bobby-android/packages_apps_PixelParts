@@ -2,6 +2,8 @@
 
 ## About the app
 
+This is a fork of the Evolution-X package PixelParts. It has been modified to work with Pixel 4a5G/5/5a devices. This is not *yet* feature parity with EvoX
+
 PixelParts began as a simple High Brightness Mode (HBM) tool. Since then, it has evolved to include a detailed battery information panel, a display saturation level adjuster, charging limiter and more. The app now offers a wide range of features, transitioning from its original function as an HBM tool to a hub for device tweaks and stats on customs, with a lot more planned going forward.
 
 ## Current features
@@ -9,11 +11,8 @@ PixelParts began as a simple High Brightness Mode (HBM) tool. Since then, it has
 | Category | Feature | Description | QS Tile | Required kernel changes |
 | --- | --- | --- | --- | --- |
 | **Battery** | `Battery information` | View various battery information | Yes |N/A |
-| | `Charge control` | Start/stop charging at specific percentages | N/A | N/A | 
-| | `Fast charge` | Enable CDP mode for faster charging on USB 2.0 ports. | Yes | [Commit 1/1](https://github.com/Evolution-X-Devices/kernel_google_gs101/commit/dcbfcd76bdc5d72e16f85fd8a48de6afa8804b61) |
 | **Display** | `Automatic high brightness mode (HBM)` | Enable peak luminance based on sunlight | Yes | N/A |
 |  | `Saturation` | Control the saturation level of the display | Yes | N/A |
-| **Leds** | `Pixel torch` | Adjust the brightness of the PixelParts flashlight QS-Tile | PixelParts Flashlight QS | N/A |
 
 ## Including PixelParts
 
@@ -26,7 +25,7 @@ PixelParts began as a simple High Brightness Mode (HBM) tool. Since then, it has
 - Clone this repository to packages/apps/PixelParts directory in your AOSP build tree:
 
 ```
-croot && git clone https://github.com/Evolution-X-Devices/packages_apps_PixelParts packages/apps/PixelParts
+croot && git clone https://github.com/306bobby-android/packages_apps_PixelParts packages/apps/PixelParts
 ```
 
 - Include the app during compilation by adding the following to device-*.mk:
@@ -57,3 +56,4 @@ m PixelParts
 | ----------------------------------------------------------- | --------------------------------------------------------------------------- |
 | CustomSeekBar preference                                    | [Neobuddy89](https://forum.xda-developers.com/m/neobuddy89.3795148/)        |
 | Original AutoHBMService                                     | [Hikari no Tenshi](https://forum.xda-developers.com/m/hikari-no-tenshi.4337348/) & [maxwen](https://forum.xda-developers.com/m/maxwen.4683552/) |
+| Migrating to Pixel Redbull devices                          | [306bobby](https://xdaforums.com/m/306bobby.12481463/)
