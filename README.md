@@ -4,13 +4,12 @@
 
 This is a fork of the Evolution-X package PixelParts. It has been modified to work with Pixel 4a5G/5/5a devices. This is not *yet* feature parity with EvoX
 
-PixelParts began as a simple High Brightness Mode (HBM) tool. Since then, it has evolved to include a detailed battery information panel, a display saturation level adjuster, charging limiter and more. The app now offers a wide range of features, transitioning from its original function as an HBM tool to a hub for device tweaks and stats on customs, with a lot more planned going forward.
+PixelParts began as a simple High Brightness Mode (HBM) tool. It's development has significantly grown over time, but we are starting fresh here with redbull devices!
 
 ## Current features
 
 | Category | Feature | Description | QS Tile | Required kernel changes |
 | --- | --- | --- | --- | --- |
-| **Battery** | `Battery information` | View various battery information | Yes |N/A |
 | **Display** | `Automatic high brightness mode (HBM)` | Enable peak luminance based on sunlight | Yes | N/A |
 |  | `Saturation` | Control the saturation level of the display | Yes | N/A |
 
