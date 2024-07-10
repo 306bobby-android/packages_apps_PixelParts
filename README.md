@@ -1,5 +1,3 @@
-![example](https://raw.githubusercontent.com/Evolution-X-Devices/packages_apps_PixelParts/udc/readme_resources/PixelParts.png)
-
 ## About the app
 
 This is a fork of the Evolution-X package PixelParts. It has been modified to work with Pixel 4a5G/5/5a devices. This is not *yet* feature parity with EvoX
