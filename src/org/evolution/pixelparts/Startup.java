@@ -12,6 +12,7 @@ import android.content.Intent;
 import org.evolution.pixelparts.autohbm.AutoHbmActivity;
 import org.evolution.pixelparts.autohbm.AutoHbmFragment;
 import org.evolution.pixelparts.autohbm.AutoHbmTileService;
+import org.evolution.pixelparts.chargecontrol.ChargeControlFragment;
 import org.evolution.pixelparts.saturation.SaturationFragment;
 import org.evolution.pixelparts.utils.ComponentUtils;
 import org.evolution.pixelparts.utils.FileUtils;
@@ -37,7 +38,10 @@ public class Startup extends BroadcastReceiver {
                 AutoHbmFragment.isHbmSupported(context)
         );
 
- 
+        // Charge control
+        ChargeControlFragment.restoreStartChargingSetting(context);
+        ChargeControlFragment.restoreStopChargingSetting(context);
+
         // Saturation
         SaturationFragment.restoreSaturationSetting(context);
     }
