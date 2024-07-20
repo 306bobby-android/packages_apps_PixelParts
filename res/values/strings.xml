@@ -67,7 +67,7 @@
     <string name="battery_cycle_count_footer">Due to quality inspections before shipping, the cycle count may not be zero on first use</string>
 
     <!-- Charge control -->
-    <string name="charge_control_title">Charge control</string>
+    <string name="charge_control_title">Charge limit control</string>
     <string name="charge_control_summary">Control when the device stops and starts charging</string>
     <string name="charge_control_main_switch_title">Use Charge control</string>
     <string name="stop_charging_title">Stop charging level</string>
