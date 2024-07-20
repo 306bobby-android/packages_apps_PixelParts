@@ -31,11 +31,10 @@ allow pixelparts_app system_data_file:dir search;
 
 allow pixelparts_app {
   sysfs_batteryinfo
-  sysfs_fastcharge
-  sysfs_leds
+  sysfs_chargelevel
 }:file rw_file_perms;
 
 allow pixelparts_app {
   sysfs_batteryinfo
-  sysfs_leds
+  sysfs_chargelevel
 }:dir r_dir_perms;
