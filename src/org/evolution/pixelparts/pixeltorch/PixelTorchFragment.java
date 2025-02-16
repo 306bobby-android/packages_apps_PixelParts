@@ -6,67 +6,44 @@
 package org.evolution.pixelparts.pixeltorch;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
-
-import org.evolution.pixelparts.Constants;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import org.evolution.pixelparts.R;
-import org.evolution.pixelparts.utils.TileUtils;
 
-public class PixelTorchFragment extends PreferenceFragmentCompat
-        implements Preference.OnPreferenceChangeListener {
+public class PixelTorchFragment extends Fragment {
 
-    private Preference mButtonServicePreference;
+    private PixelTorchHelper mPixelTorchHelper;
+    private SeekBar brightnessSlider;
+    private TextView brightnessText;
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.pixel_torch, rootKey);
-        setHasOptionsMenu(true);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPixelTorchHelper = new PixelTorchHelper(getContext());
 
-        mButtonServicePreference = findPreference(Constants.KEY_PIXEL_TORCH_BUTTON_SERVICE);
-        mButtonServicePreference.setOnPreferenceClickListener(preference -> {
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-            return true;
+        setContentView(R.layout.fragment_torch_brightness);
+        brightnessSlider = findViewById(R.id.brightness_slider);
+        brightnessText = findViewById(R.id.brightness_text);
+
+        brightnessSlider.setMax(500); // Max brightness
+        brightnessSlider.setProgress(mPixelTorchHelper.getTorchBrightness());
+
+        brightnessSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mPixelTorchHelper.setTorchBrightness(progress);
+                brightnessText.setText("Brightness: " + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.pixel_torch_menu, menu);
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add_tile) {
-            TileUtils.requestAddTileService(
-                    getContext(),
-                    PixelTorchTileService.class,
-                    R.string.pixel_torch_title,
-                    R.drawable.ic_pixel_torch_tile
-            );
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public static boolean hasTorch(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        return packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
     }
 }

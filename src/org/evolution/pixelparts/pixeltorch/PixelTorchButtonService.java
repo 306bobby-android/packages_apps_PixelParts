@@ -9,7 +9,6 @@ package org.evolution.pixelparts.pixeltorch;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.hardware.camera2.CameraManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.KeyEvent;
 
@@ -18,8 +17,6 @@ import androidx.preference.PreferenceManager;
 public class PixelTorchButtonService extends AccessibilityService {
 
     private SharedPreferences mSharedPrefs;
-    private CameraManager mCameraManager;
-    private CameraManager.TorchCallback mTorchCallback;
     private PixelTorchHelper mPixelTorchHelper;
     private boolean mVolumeUp = false;
     private boolean mVolumeDown = false;
@@ -27,43 +24,37 @@ public class PixelTorchButtonService extends AccessibilityService {
     @Override
     public void onServiceConnected() {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        mPixelTorchHelper = new PixelTorchHelper(mCameraManager);
-
-        mTorchCallback = new CameraManager.TorchCallback() {
-            @Override
-            public void onTorchModeChanged(String cameraId, boolean enabled) {
-                super.onTorchModeChanged(cameraId, enabled);
-                if (!enabled) {
-                    mPixelTorchHelper.setCurrentState(mSharedPrefs, 0);
-                }
-            }
-        };
-
-        mCameraManager.registerTorchCallback(mTorchCallback, null);
+        mPixelTorchHelper = new PixelTorchHelper(this);
     }
 
     @Override
     public boolean onKeyEvent(KeyEvent event) {
         if (event == null) return false;
 
-        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP ||
-                event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+        int brightness = mPixelTorchHelper.getTorchBrightness();
+        boolean pressed = event.getAction() == KeyEvent.ACTION_DOWN;
 
-            boolean pressed = event.getAction() == KeyEvent.ACTION_DOWN;
-
-            if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
-                mVolumeUp = pressed;
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                mVolumeDown = pressed;
+        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
+            mVolumeUp = pressed;
+            if (pressed) {
+                brightness = Math.min(brightness + 50, 500);  // Increase brightness
             }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            mVolumeDown = pressed;
+            if (pressed) {
+                brightness = Math.max(brightness - 50, 0);  // Decrease brightness
+            }
+        }
 
-            if (mVolumeUp && mVolumeDown) {
-                mPixelTorchHelper.toggleTorch(mSharedPrefs);
+        // If both volume buttons are pressed, toggle the torch
+        if (mVolumeUp && mVolumeDown) {
+            if (brightness > 0) {
+                mPixelTorchHelper.setTorchBrightness(0);
+            } else {
+                mPixelTorchHelper.setTorchBrightness(200);  // Default brightness
             }
         } else {
-            mVolumeUp = false;
-            mVolumeDown = false;
+            mPixelTorchHelper.setTorchBrightness(brightness);
         }
 
         return false;
