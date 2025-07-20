@@ -13,6 +13,10 @@ import org.evolution.pixelparts.autohbm.AutoHbmActivity;
 import org.evolution.pixelparts.autohbm.AutoHbmFragment;
 import org.evolution.pixelparts.autohbm.AutoHbmTileService;
 import org.evolution.pixelparts.chargecontrol.ChargeControlFragment;
+import org.evolution.pixelparts.pixeltorch.PixelTorchActivity;
+import org.evolution.pixelparts.pixeltorch.PixelTorchFragment;
+import org.evolution.pixelparts.pixeltorch.PixelTorchButtonService;
+import org.evolution.pixelparts.pixeltorch.PixelTorchTileService;
 import org.evolution.pixelparts.saturation.SaturationFragment;
 import org.evolution.pixelparts.utils.ComponentUtils;
 import org.evolution.pixelparts.utils.FileUtils;
@@ -36,6 +40,25 @@ public class Startup extends BroadcastReceiver {
                 context,
                 AutoHbmTileService.class,
                 AutoHbmFragment.isHbmSupported(context)
+        );
+
+        // PixelTorch
+        ComponentUtils.toggleComponent(
+                context,
+                PixelTorchActivity.class,
+                PixelTorchFragment.hasTorch(context)
+        );
+
+        ComponentUtils.toggleComponent(
+                context,
+                PixelTorchButtonService.class,
+                PixelTorchFragment.hasTorch(context)
+        );
+
+        ComponentUtils.toggleComponent(
+                context,
+                PixelTorchTileService.class,
+                PixelTorchFragment.hasTorch(context)
         );
 
         // Charge control

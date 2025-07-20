@@ -16,6 +16,8 @@ import android.util.Log;
 
 import org.evolution.pixelparts.autohbm.AutoHbmActivity;
 import org.evolution.pixelparts.autohbm.AutoHbmTileService;
+import org.evolution.pixelparts.pixeltorch.PixelTorchActivity;
+import org.evolution.pixelparts.pixeltorch.PixelTorchTileService;
 
 public final class TileHandlerActivity extends Activity {
     private static final String TAG = "TileHandlerActivity";
@@ -33,6 +35,8 @@ public final class TileHandlerActivity extends Activity {
 
                 if (qsName.equals(AutoHbmTileService.class.getName())) {
                     aIntent.setClass(this, AutoHbmActivity.class);
+                } else if (qsName.equals(PixelTorchTileService.class.getName())) {
+                    aIntent.setClass(this, PixelTorchActivity.class);
                 } else {
                     aIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     aIntent.setData(Uri.fromParts("package", qsTile.getPackageName(), null));
