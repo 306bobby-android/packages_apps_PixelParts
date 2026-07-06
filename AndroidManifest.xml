@@ -58,6 +58,13 @@
                 android:resource="@string/pixel_torch_summary" />
         </activity>
 
+        <!-- Pixel torch dialog activity -->
+        <activity
+            android:name=".pixeltorch.PixelTorchDialogActivity"
+            android:label="@string/pixel_torch_title"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog"
+            android:exported="true" />
+
         <!-- Pixel torch button service -->
         <service
             android:name=".pixeltorch.PixelTorchButtonService"
