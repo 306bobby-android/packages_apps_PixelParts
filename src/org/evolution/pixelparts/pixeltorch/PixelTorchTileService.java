@@ -35,6 +35,21 @@ public class PixelTorchTileService extends TileService {
                 super.onTorchModeChanged(cameraId, enabled);
                 if (!enabled) {
                     mPixelTorchHelper.setCurrentState(mSharedPrefs, 0);
+                    mPixelTorchHelper.writeTorchOff();
+                } else {
+                    int currentState = mPixelTorchHelper.getCurrentState(mSharedPrefs);
+                    if (currentState == 0) {
+                        currentState = 1;
+                        mPixelTorchHelper.setCurrentState(mSharedPrefs, currentState);
+                    }
+                    int torchStrength = mSharedPrefs.getInt(
+                            currentState == 2 ? Constants.KEY_PIXEL_TORCH_STRENGTH_2 :
+                            currentState == 3 ? Constants.KEY_PIXEL_TORCH_STRENGTH_3 :
+                            Constants.KEY_PIXEL_TORCH_STRENGTH_1,
+                            currentState == 2 ? 150 :
+                            currentState == 3 ? 50 : 255
+                    );
+                    mPixelTorchHelper.writeTorchBrightness(torchStrength);
                 }
                 updateTile(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
             }

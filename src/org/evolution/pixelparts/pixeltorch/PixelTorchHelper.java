@@ -10,6 +10,7 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 
 import org.evolution.pixelparts.Constants;
+import org.evolution.pixelparts.utils.FileUtils;
 
 public class PixelTorchHelper {
 
@@ -50,12 +51,27 @@ public class PixelTorchHelper {
         }
     }
 
+    public void writeTorchBrightness(int strength) {
+        String val = String.valueOf(strength);
+        FileUtils.writeValue(Constants.NODE_TORCH_0, val);
+        FileUtils.writeValue(Constants.NODE_TORCH_1, val);
+        FileUtils.writeValue(Constants.NODE_TORCH_SWITCH, "0");
+        FileUtils.writeValue(Constants.NODE_TORCH_SWITCH, "255");
+    }
+
+    public void writeTorchOff() {
+        FileUtils.writeValue(Constants.NODE_TORCH_SWITCH, "0");
+        FileUtils.writeValue(Constants.NODE_TORCH_0, "0");
+        FileUtils.writeValue(Constants.NODE_TORCH_1, "0");
+    }
+
     private void turnOffTorch(String outCameraId) {
         try {
             mCameraManager.setTorchMode(outCameraId, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        writeTorchOff();
     }
 
     private void turnOnTorch(int currentState, SharedPreferences sharedPrefs, String outCameraId) {
@@ -63,8 +79,9 @@ public class PixelTorchHelper {
             String strengthKey = getStrengthKey(currentState);
             int torchStrength = sharedPrefs.getInt(strengthKey, getDefaultStrength(currentState));
 
+            mCameraManager.setTorchMode(outCameraId, true);
             if (torchStrength != 0) {
-                mCameraManager.turnOnTorchWithStrengthLevel(outCameraId, torchStrength);
+                writeTorchBrightness(torchStrength);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,13 +112,13 @@ public class PixelTorchHelper {
     private int getDefaultStrength(int currentState) {
         switch (currentState) {
             case 1:
-                return 45;
+                return 255;
             case 2:
-                return 25;
+                return 150;
             case 3:
-                return 10;
+                return 50;
             default:
-                return 45;
+                return 255;
         }
     }
 }
