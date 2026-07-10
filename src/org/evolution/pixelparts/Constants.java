@@ -14,9 +14,9 @@ public class Constants {
     public static final String KEY_PIXEL_TORCH_STRENGTH_1 = "pixel_torch_strength_1";
     public static final String KEY_PIXEL_TORCH_STRENGTH_2 = "pixel_torch_strength_2";
     public static final String KEY_PIXEL_TORCH_STRENGTH_3 = "pixel_torch_strength_3";
-    public static final String NODE_TORCH_0 = "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_0/brightness";
-    public static final String NODE_TORCH_1 = "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_1/brightness";
-    public static final String NODE_TORCH_SWITCH = "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:switch_2/brightness";
+    public static final String NODE_TORCH_0 = "/sys/class/leds/led:torch_0/brightness";
+    public static final String NODE_TORCH_1 = "/sys/class/leds/led:torch_1/brightness";
+    public static final String NODE_TORCH_SWITCH = "/sys/class/leds/led:switch_2/brightness";
 
     // AutoHbm
     public static final String KEY_AUTO_HBM = "auto_hbm";
