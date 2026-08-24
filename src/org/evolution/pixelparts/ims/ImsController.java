@@ -110,6 +110,9 @@ public final class ImsController {
      * @return true if the restart was requested
      */
     public boolean restartModem() {
+        if (!canRestartModem()) {
+            return false;
+        }
         try {
             mTelephonyManager.rebootModem();
             Log.i(TAG, "Requested modem restart");

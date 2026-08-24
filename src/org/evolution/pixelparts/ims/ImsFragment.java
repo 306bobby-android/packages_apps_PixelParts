@@ -121,7 +121,7 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
         pref.setOnPreferenceChangeListener((preference, newValue) -> {
             final boolean enabled = (Boolean) newValue;
             if (!enabled) {
-                mController.setEnabled(subId, false);
+                applyAndRestart(subId, false);
                 return true;
             }
             confirmEnable(subId, (SwitchPreferenceCompat) preference);
@@ -141,10 +141,24 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
                 .setMessage(R.string.ims_warning_message)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(R.string.ims_warning_confirm, (dialog, which) -> {
-                    mController.setEnabled(subId, true);
+                    applyAndRestart(subId, true);
                     pref.setChecked(true);
                 })
                 .show();
+    }
+
+    /**
+     * A carrier config override only reaches the modem when it re-registers,
+     * so the modem is restarted on both edges. Doing it only when switching on
+     * would leave switching off looking like it had not worked.
+     */
+    private void applyAndRestart(int subId, boolean enabled) {
+        mController.setEnabled(subId, enabled);
+        final boolean restarted = mController.restartModem();
+        Toast.makeText(getContext(),
+                restarted ? R.string.ims_restart_modem_done
+                          : R.string.ims_restart_modem_failed,
+                Toast.LENGTH_LONG).show();
     }
 
     private String describe(SubscriptionInfo info) {
