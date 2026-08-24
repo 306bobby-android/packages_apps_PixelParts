@@ -12,6 +12,8 @@
           android:versionName="2.0" >
 
     <application
+        android:name=".PixelPartsApp"
+        android:persistent="true"
         android:icon="@drawable/ic_launcher_settings"
         android:label="@string/pixel_parts_title"
         android:defaultToDeviceProtectedStorage="true"
@@ -57,11 +59,6 @@
                 android:name="com.android.settings.summary"
                 android:resource="@string/auto_hbm_summary" />
         </activity>
-
-        <!-- Auto HBM service -->
-        <service
-            android:name=".autohbm.AutoHbmService"
-            android:exported="false" />
 
         <!-- Auto HBM tile service -->
         <service
