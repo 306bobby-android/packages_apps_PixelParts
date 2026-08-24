@@ -10,6 +10,10 @@ app_domain(pixelparts_app)
 # to reach PowerManager.
 allow pixelparts_app app_api_service:service_manager find;
 
+# carrier_config, isub and phone are all radio_service, which carries no
+# app_api_service attribute, so the rule above does not reach them.
+allow pixelparts_app radio_service:service_manager find;
+
 allow pixelparts_app system_app_data_file:dir create_dir_perms;
 allow pixelparts_app system_app_data_file:{ file lnk_file } create_file_perms;
 allow pixelparts_app system_data_file:dir search;

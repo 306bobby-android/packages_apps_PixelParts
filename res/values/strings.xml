@@ -26,4 +26,16 @@
     <string name="auto_hbm_disable_time_title">Disable time</string>
     <string name="auto_hbm_disable_time_summary">Duration in seconds for which HBM is deactivated if the light threshold falls below the set level</string>
 
+    <!-- IMS -->
+    <string name="ims_title">VoLTE, VoWiFi and 5G</string>
+    <string name="ims_summary">Offer IMS features on carriers that have not certified them for this device</string>
+    <string name="ims_sim_category_title">Force IMS features</string>
+    <string name="ims_switch_summary">Advertise VoLTE, Wi\u2011Fi calling, video calling and 5G as available, and skip carrier provisioning</string>
+    <string name="ims_sim_slot">SIM <xliff:g id="slot" example="1">%1$d</xliff:g></string>
+    <string name="ims_sim_slot_carrier">SIM <xliff:g id="slot" example="1">%1$d</xliff:g> \u2014 <xliff:g id="carrier" example="Vodafone">%2$s</xliff:g></string>
+    <string name="ims_no_sim_summary">Insert a SIM to configure IMS features.</string>
+    <string name="ims_footer_summary">These settings override what your carrier publishes for this device. Features may not work, or may work unreliably, on a network that has not been tested with this hardware. Turn a switch off to restore your carrier\'s own configuration.</string>
+    <string name="ims_warning_title">Emergency calls may be affected</string>
+    <string name="ims_warning_message">Forcing these features changes how emergency calls are placed and how your location is shared with emergency services.\n\nOn an untested network an emergency call may fail to connect, may be routed to the wrong centre, or may not carry your location. Your carrier has not certified this device for these features.\n\nIf you rely on this phone for emergency calls, leave this off.</string>
+    <string name="ims_warning_confirm">I understand</string>
 </resources>

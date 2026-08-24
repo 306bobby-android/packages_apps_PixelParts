@@ -8,6 +8,7 @@ package org.evolution.pixelparts;
 import android.app.Application;
 
 import org.evolution.pixelparts.autohbm.AutoHbmController;
+import org.evolution.pixelparts.ims.ImsController;
 
 /**
  * Entry point for the persistent PixelParts process.
@@ -25,5 +26,9 @@ public class PixelPartsApp extends Application {
         super.onCreate();
 
         AutoHbmController.getInstance(this).start();
+
+        if (ImsController.isSupported(this)) {
+            ImsController.getInstance(this).start();
+        }
     }
 }
