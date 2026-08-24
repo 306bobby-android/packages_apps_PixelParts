@@ -3,31 +3,17 @@ typeattribute pixelparts_app mlstrustedsubject;
 
 app_domain(pixelparts_app)
 
-allow pixelparts_app {
-  activity_service
-  activity_task_service
-  audio_service
-  autofill_service
-  content_capture_service
-  device_state_service
-  game_service
-  gpu_service
-  hint_service
-  media_session_service
-  netstats_service
-  permission_checker_service
-  sensorservice_service
-  statusbar_service
-  surfaceflinger_service
-  thermal_service
-  trust_service
-  voiceinteraction_service
-}:service_manager find;
+# app_domain() makes this an appdomain but grants no service access of its
+# own - every app domain names what it can reach. This replaces an enumerated
+# list of eighteen services, all of which were app_api_service, and which was
+# missing power_service - so the automatic HBM screen state check had no way
+# to reach PowerManager.
+allow pixelparts_app app_api_service:service_manager find;
 
 allow pixelparts_app system_app_data_file:dir create_dir_perms;
 allow pixelparts_app system_app_data_file:{ file lnk_file } create_file_perms;
 allow pixelparts_app system_data_file:dir search;
 
-# hbm_mode, which lives under the panel backlight
+# hbm_mode, which sits under the panel backlight
 allow pixelparts_app sysfs_leds:dir r_dir_perms;
 allow pixelparts_app sysfs_leds:file rw_file_perms;

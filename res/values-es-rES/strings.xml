@@ -7,25 +7,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- PixelParts -->
     <string name="pixel_parts_title">Ajustes del Pixel</string>
-    <string name="kernel_node_access_error">¡El acceso al nodo Kernel falló! Por favor, asegúrese de que la ruta proporcionada al atributo sysfs o procfs es exacta, de que tiene los permisos apropiados, y de que las políticas SELinux están correctamente configuradas.</string>
-    <string name="kernel_node_returned_value_unknown">No se encontró ningún recurso de cadena para el valor devuelto por el nodo.</string>
     <string name="tile_add">Añadir tarjeta</string>
     <string name="tile_added">Tarjeta añadida</string>
     <string name="tile_not_added">Tarjeta no añadida</string>
     <string name="tile_already_added">Tarjeta ya añadida</string>
     <string name="tile_on">Activado</string>
     <string name="tile_off">Desactivado</string>
-    <!-- Charge control -->
-    <string name="charge_control_title">Control de carga basado en porcentaje</string>
-    <string name="charge_control_summary">Controlar cuando el dispositivo se detenga y comience a cargar</string>
-    <string name="charge_control_main_switch_title">Control de carga basado en porcentaje</string>
-    <string name="stop_charging_title">Detener la carga al</string>
-    <string name="stop_charging_summary">Detener la carga cuando se alcanza el porcentaje establecido</string>
-    <string name="start_charging_title">Comenzar la carga en porcentaje específico</string>
-    <string name="start_charging_summary">Reanudar la carga cuando se alcanza el porcentaje establecido</string>
-    <string name="stop_below_start_error">¡Ajuste final debe estar por encima del ajuste de inicio!</string>
-    <string name="start_above_stop_error">¡Ajuste de inicio debe estar por debajo del ajuste final!</string>
-    <string name="charge_control_footer_summary">El control de la carga puede interferir con la carga adaptativa.</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Modo de alto brillo automático</string>
     <string name="auto_hbm_main_switch_title">Usar HBM automático</string>
@@ -36,9 +23,4 @@
     <string name="auto_hbm_enable_time_summary">Duración en segundos que el umbral de luz debe ser alcanzado para activar HBM</string>
     <string name="auto_hbm_disable_time_title">Hora de desactivación</string>
     <string name="auto_hbm_disable_time_summary">Duración en segundos en los que se desactiva HBM si el nivel de luz cae por debajo del umbral establecido</string>
-    <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Valor: <xliff:g id="v">%s</xliff:g></string>
-    <string name="custom_seekbar_default_value">por defecto</string>
-    <string name="custom_seekbar_default_value_to_set">Valor predeterminado: <xliff:g id="v">%s</xliff:g>\nMantén pulsado para establecer</string>
-    <string name="custom_seekbar_default_value_is_set">\"El valor predeterminado está establecido</string>
 </resources>

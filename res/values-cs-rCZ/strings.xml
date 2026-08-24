@@ -7,25 +7,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- PixelParts -->
     <string name="pixel_parts_title">Pixel součásti</string>
-    <string name="kernel_node_access_error">Přístup k uzlu jádra se nezdařil! Ujistěte se, že poskytnutá cesta k atributu sysfs nebo procfs je přesná, že má odpovídající oprávnění a SELinux zásady jsou správně nastaveny.</string>
-    <string name="kernel_node_returned_value_unknown">Pro hodnotu vrácenou uzlem nebyl nalezen žádný zdroj řetězce.</string>
     <string name="tile_add">Přidat dlaždici</string>
     <string name="tile_added">Dlaždice přidána</string>
     <string name="tile_not_added">Dlaždice nebyla přidána</string>
     <string name="tile_already_added">Dlaždice již byla přidána</string>
     <string name="tile_on">Zapnuto</string>
     <string name="tile_off">Vypnuto</string>
-    <!-- Charge control -->
-    <string name="charge_control_title">Ovládání nabíjení na základě procent</string>
-    <string name="charge_control_summary">Ovládat zařízení kdy se zastaví a začne nabíjet</string>
-    <string name="charge_control_main_switch_title">Ovládání nabíjení na základě procent</string>
-    <string name="stop_charging_title">Ukončit nabíjení</string>
-    <string name="stop_charging_summary">Zastavit nabíjení při dosažení nastaveného procenta</string>
-    <string name="start_charging_title">Spustit úroveň nabíjení</string>
-    <string name="start_charging_summary">Pokračovat v nabíjení po překročení nastaveného procenta</string>
-    <string name="stop_below_start_error">Úroveň zastavení musí být nad úrovní startu!</string>
-    <string name="start_above_stop_error">Úroveň zastavení musí být nad úrovní startu!</string>
-    <string name="charge_control_footer_summary">Řízení nabíjení může bránit adaptivnímu nabíjení.</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatické HBM</string>
     <string name="auto_hbm_main_switch_title">Použít automatické HBM</string>
@@ -36,9 +23,4 @@
     <string name="auto_hbm_enable_time_summary">Doba trvání v sekundách, kdy musí být prahová hodnota světla trvale plněna pro aktivaci HBM</string>
     <string name="auto_hbm_disable_time_title">Zakázat čas</string>
     <string name="auto_hbm_disable_time_summary">Doba trvání v sekundách, po kterou je HBM deaktivován, pokud prahová hodnota světla klesne pod nastavenou úroveň</string>
-    <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Hodnota: <xliff:g id="v">%s</xliff:g></string>
-    <string name="custom_seekbar_default_value">výchozí hodnota</string>
-    <string name="custom_seekbar_default_value_to_set">Výchozí hodnota: <xliff:g id="v">%s</xliff:g>\nDlouhým klepnutím ji nastavíte</string>
-    <string name="custom_seekbar_default_value_is_set">Výchozí hodnota je nastavena</string>
 </resources>
