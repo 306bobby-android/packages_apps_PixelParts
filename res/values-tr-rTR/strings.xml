@@ -49,17 +49,9 @@
     <string name="auto_hbm_enable_time_summary">HBM\'yi etkinleştirmek için ışık eşiğinin sürekli olarak karşılanması gereken saniye cinsinden süre</string>
     <string name="auto_hbm_disable_time_title">Zamanı devre dışı bırak</string>
     <string name="auto_hbm_disable_time_summary">Işık eşiği ayarlanan seviyenin altına düştüğünde HBM\'nin devre dışı bırakıldığı saniye cinsinden süre</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Doygunluk</string>
-    <string name="saturation_summary">Ekranın doygunluk seviyesini kontrol edin</string>
-    <string name="saturation_footer_summary">Ekran ayarlarında renk modunun değiştirilmesi doygunluk seviyesini geçersiz kılacak ve yeniden uygulanmasını gerektirecektir.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Değer: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">varsayılan olarak</string>
     <string name="custom_seekbar_default_value_to_set">Varsayılan değer: <xliff:g id="v">%s</xliff:g>\nAyarlamak için uzun dokunun</string>
     <string name="custom_seekbar_default_value_is_set">Varsayılan değer ayarlandı</string>
-    <!-- Image preview -->
-    <string name="image_preview_content_description">Ön izleme</string>
-    <string name="image_preview_next_page_content_description">İleri</string>
-    <string name="image_preview_previous_page_content_description">Geri</string>
 </resources>

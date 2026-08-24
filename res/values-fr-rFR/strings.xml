@@ -49,17 +49,9 @@
     <string name="auto_hbm_enable_time_summary">Durée en secondes que le seuil de lumière doit atteindre en continu pour activer le HBM</string>
     <string name="auto_hbm_disable_time_title">Désactiver l\'heure d\'activation</string>
     <string name="auto_hbm_disable_time_summary">Durée en secondes pour laquelle le HBM est désactivé si le seuil de lumière tombe en dessous du niveau défini</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Saturation</string>
-    <string name="saturation_summary">Contrôler le niveau de saturation de l\'écran</string>
-    <string name="saturation_footer_summary">La modification du mode couleur dans les paramètres d\'affichage remplacera le niveau de saturation, ce qui nécessitera sa réapplication.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Valeur : <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">par défaut</string>
     <string name="custom_seekbar_default_value_to_set">Valeur par défaut : <xliff:g id="v">%s</xliff:g>\nRester appuyer pour définir</string>
     <string name="custom_seekbar_default_value_is_set">Valeur par défaut définie</string>
-    <!-- Image preview -->
-    <string name="image_preview_content_description">Aperçu</string>
-    <string name="image_preview_next_page_content_description">Suivant</string>
-    <string name="image_preview_previous_page_content_description">Précédent</string>
 </resources>

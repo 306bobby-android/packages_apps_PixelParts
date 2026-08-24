@@ -49,17 +49,9 @@
     <string name="auto_hbm_enable_time_summary">Doba trvání v sekundách, kdy musí být prahová hodnota světla trvale plněna pro aktivaci HBM</string>
     <string name="auto_hbm_disable_time_title">Zakázat čas</string>
     <string name="auto_hbm_disable_time_summary">Doba trvání v sekundách, po kterou je HBM deaktivován, pokud prahová hodnota světla klesne pod nastavenou úroveň</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Sytost</string>
-    <string name="saturation_summary">Nastavení úrovně sytosti displeje</string>
-    <string name="saturation_footer_summary">Změna režimu barev v nastavení displeje přepíše úroveň sytosti, která vyžaduje, aby byla znovu použita.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Hodnota: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">výchozí hodnota</string>
     <string name="custom_seekbar_default_value_to_set">Výchozí hodnota: <xliff:g id="v">%s</xliff:g>\nDlouhým klepnutím ji nastavíte</string>
     <string name="custom_seekbar_default_value_is_set">Výchozí hodnota je nastavena</string>
-    <!-- Image preview -->
-    <string name="image_preview_content_description">Náhled</string>
-    <string name="image_preview_next_page_content_description">Další</string>
-    <string name="image_preview_previous_page_content_description">Předchozí</string>
 </resources>
