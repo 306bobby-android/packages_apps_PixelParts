@@ -117,8 +117,12 @@ public final class ImsController {
             mTelephonyManager.rebootModem();
             Log.i(TAG, "Requested modem restart");
             return true;
-        } catch (IllegalStateException | UnsupportedOperationException | RuntimeException e) {
-            // rebootModem() throws outright when the modem does not support it.
+        } catch (RuntimeException e) {
+            // rebootModem() throws rather than returning a result:
+            // IllegalStateException when telephony is down, RemoteException
+            // rethrown as a RuntimeException, UnsupportedOperationException
+            // when the feature is absent. All of them are RuntimeException,
+            // which is why they cannot be named individually here.
             Log.e(TAG, "Could not restart the modem", e);
             return false;
         }
