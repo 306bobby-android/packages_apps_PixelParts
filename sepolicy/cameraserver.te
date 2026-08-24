@@ -1,3 +1,10 @@
+#
+# Copyright (C) 2024 The Evolution X Project
+#               2024 crDroid Android Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
 # PixelParts' camera provider extension is linked into libcameraservice, so
 # torch strength is written from cameraserver itself.
 allow cameraserver sysfs_flash_led:dir search;

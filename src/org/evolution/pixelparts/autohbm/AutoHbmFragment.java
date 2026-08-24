@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2023-2024 The Evolution X Project
+ *               2024 crDroid Android Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
