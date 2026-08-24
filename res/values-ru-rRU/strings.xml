@@ -36,9 +36,6 @@
     <string name="pixel_torch_first_click_title">Первое нажатие</string>
     <string name="pixel_torch_second_click_title">Второе нажатие</string>
     <string name="pixel_torch_third_click_title">Третье нажатие</string>
-    <string name="pixel_torch_button_service_title">Сервис кнопок громкости</string>
-    <string name="pixel_torch_button_service_summary">Включение/выключение фонарика Pixel при одновременном нажатии обеих кнопок громкости</string>
-    <string name="pixel_torch_button_service_description">Cервис отслеживает нажатия клавиш, в частности кнопок увеличения и уменьшения громкости, для включения/выключения фонарика Pixel. Данный сервис не собирает никаких данных с вашего устройства.\n\nВключение сочетания клавиш \"Удержание кнопки громкости\" на этой странице переопределит событие нажатия клавиши, в результате чего сервис не будет работать.\n\nЭтот сервис не будет работать, когда экран выключен и воспроизводится аудио (независимо от устройства вывода).</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Автоматический HBM</string>
     <string name="auto_hbm_main_switch_title">Использовать автоматический HBM</string>

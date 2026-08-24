@@ -36,9 +36,6 @@
     <string name="pixel_torch_first_click_title">První kliknutí</string>
     <string name="pixel_torch_second_click_title">Druhé kliknutí</string>
     <string name="pixel_torch_third_click_title">Třetí kliknutí</string>
-    <string name="pixel_torch_button_service_title">Služba tlačítek hlasitosti</string>
-    <string name="pixel_torch_button_service_summary">Přepnout Pixel svítilnu při současném stisku obou tlačítek hlasitosti</string>
-    <string name="pixel_torch_button_service_description">Tato služba přístupnosti poslouchá události klíče, konkrétně tlačítek hlasitosti nahoru a dolů pro přepnutí Pixel svítilny. Tato služba ze zařízení neshromažďuje žádná data.\n\nPovolení zástupce \"Držet klávesu Hlasitost\" na této stránce přepíše klíčovou událost, což způsobí, že služba nefunguje.\n\nTato služba nebude fungovat, když je obrazovka vypnuta při přehrávání zvuku (bez ohledu na výstupní zařízení).</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatické HBM</string>
     <string name="auto_hbm_main_switch_title">Použít automatické HBM</string>

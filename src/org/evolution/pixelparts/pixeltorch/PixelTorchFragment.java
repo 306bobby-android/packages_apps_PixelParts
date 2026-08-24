@@ -7,11 +7,9 @@
 package org.evolution.pixelparts.pixeltorch;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,18 +26,10 @@ import org.evolution.pixelparts.utils.TileUtils;
 public class PixelTorchFragment extends SettingsBasePreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
-    private Preference mButtonServicePreference;
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pixel_torch, rootKey);
         setHasOptionsMenu(true);
-
-        mButtonServicePreference = findPreference(Constants.KEY_PIXEL_TORCH_BUTTON_SERVICE);
-        mButtonServicePreference.setOnPreferenceClickListener(preference -> {
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-            return true;
-        });
     }
 
     @Override

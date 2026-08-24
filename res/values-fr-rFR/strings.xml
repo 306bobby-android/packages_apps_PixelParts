@@ -36,9 +36,6 @@
     <string name="pixel_torch_first_click_title">Premier clic</string>
     <string name="pixel_torch_second_click_title">Deuxième clic</string>
     <string name="pixel_torch_third_click_title">Troisième clic</string>
-    <string name="pixel_torch_button_service_title">Service des boutons de volume</string>
-    <string name="pixel_torch_button_service_summary">Activer/désactiver la lampe de poche lorsque vous appuyez simultanément sur les deux boutons de volume</string>
-    <string name="pixel_torch_button_service_description">Ce service d\'accessibilité écoute les événements clés, en particulier les boutons de volume haut et bas, pour activer/désactiver la lampe de poche. Ce service ne collecte aucune donnée de votre appareil.\n\nActiver le raccourci \"Maintenir la touche de volume\" sur cette page remplacera l\'événement clé, causant le dysfonctionnement du service.\n\nCe service ne fonctionnera pas lorsque l\'écran est éteint pendant la lecture de l\'audio (quel que soit le périphérique de sortie).</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">HBM automatique</string>
     <string name="auto_hbm_main_switch_title">Utiliser le mode haute luminausité automatique</string>

@@ -65,19 +65,6 @@
             android:theme="@android:style/Theme.DeviceDefault.Dialog"
             android:exported="true" />
 
-        <!-- Pixel torch button service -->
-        <service
-            android:name=".pixeltorch.PixelTorchButtonService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/pixel_torch_button_service_config" />
-        </service>
-
         <!-- Pixel torch tile service -->
         <service
             android:name=".pixeltorch.PixelTorchTileService"

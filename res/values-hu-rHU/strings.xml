@@ -36,9 +36,6 @@
     <string name="pixel_torch_first_click_title">Első kattintás</string>
     <string name="pixel_torch_second_click_title">Második kattintás</string>
     <string name="pixel_torch_third_click_title">Harmadik kattintás</string>
-    <string name="pixel_torch_button_service_title">Hangerőszabályozó-gomb</string>
-    <string name="pixel_torch_button_service_summary">Pixel-zseblámpa kapcsolása, ha egyszerre nyomja meg a két hangerőgombot</string>
-    <string name="pixel_torch_button_service_description">Ez a szolgáltatás figyeli a gombok eseményeit, különösen a hangerő növelése és csökkentése gombokat a Pixel-zseblámpa kapcsolásához. Ez a szolgáltatás nem gyűjt adatokat az Ön készülékéről.\n\nA \"Hangerőgomb nyomvatartása\" billentyűparancs ezen az oldalon történő engedélyezése felülírja a korábbi gombparancsot, így a szolgáltatás nem fog működni.\n\nEz a szolgáltatás nem fog működni, ha a képernyő, hanglejátszás közben ki van kapcsolva (a kimeneti eszköztől függetlenül).</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatikus magasfényerő</string>
     <string name="auto_hbm_main_switch_title">Automatikus magasfényerő</string>
