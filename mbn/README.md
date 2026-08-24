@@ -50,6 +50,19 @@ cd packages/apps/PixelParts/mbn && ./generate.py
 Never edit either by hand. An index that disagrees with the tree it names is
 the whole reason the stock `mbn_sw.txt` is left alone.
 
+## The modem caches its choice
+
+Adding a configuration is not enough on its own. The modem records which mcfg
+it selected, and the RIL caches carrier state in `/data/vendor/radio`
+(`qcril.db`, `iccid_0`), so a configuration that was not present when the SIM
+was first seen is not picked up by itself. The Magisk module handles this by
+deleting those paths from its installer.
+
+A clean flash has the same effect, since that data is wiped. A dirty flash
+does not. Rather than reach into another process's data directory, PixelParts
+exposes `TelephonyManager.rebootModem()` as **Restart modem** on the IMS
+screen, which makes the modem run selection again.
+
 ## Provenance and caveats
 
 These are Google and Qualcomm signed carrier configurations, taken from the

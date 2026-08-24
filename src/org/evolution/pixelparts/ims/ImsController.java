@@ -12,6 +12,7 @@ import android.os.PersistableBundle;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
@@ -48,11 +49,15 @@ public final class ImsController {
     private final SharedPreferences mPrefs;
     private final CarrierConfigManager mCarrierConfigManager;
     private final SubscriptionManager mSubscriptionManager;
+    private final TelephonyManager mTelephonyManager;
+    private final Context mContext;
 
     private ImsController(Context context) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         mCarrierConfigManager = context.getSystemService(CarrierConfigManager.class);
         mSubscriptionManager = context.getSystemService(SubscriptionManager.class);
+        mTelephonyManager = context.getSystemService(TelephonyManager.class);
+        mContext = context;
     }
 
     public static synchronized ImsController getInstance(Context context) {
@@ -83,6 +88,37 @@ public final class ImsController {
                         restoreAll();
                     }
                 });
+    }
+
+    /**
+     * Whether the modem can be restarted without rebooting the device.
+     */
+    public boolean canRestartModem() {
+        return mContext.getPackageManager().hasSystemFeature(
+                android.content.pm.PackageManager.FEATURE_TELEPHONY_RADIO_ACCESS);
+    }
+
+    /**
+     * Restarts the modem so it re-runs carrier configuration selection.
+     *
+     * <p>The modem caches which mcfg it picked, so a configuration that was
+     * not on the device when the SIM was first seen is not noticed on its own.
+     * The Magisk module deals with this by deleting /data/vendor/radio and
+     * qcril.db from its installer; this is the same effect without reaching
+     * into another process's data directory.
+     *
+     * @return true if the restart was requested
+     */
+    public boolean restartModem() {
+        try {
+            mTelephonyManager.rebootModem();
+            Log.i(TAG, "Requested modem restart");
+            return true;
+        } catch (IllegalStateException | UnsupportedOperationException | RuntimeException e) {
+            // rebootModem() throws outright when the modem does not support it.
+            Log.e(TAG, "Could not restart the modem", e);
+            return false;
+        }
     }
 
     /** Active subscriptions, in slot order. Empty when no SIM is present. */

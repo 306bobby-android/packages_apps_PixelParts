@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.telephony.SubscriptionInfo;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -35,6 +36,7 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
 
     private static final String KEY_SIM_CATEGORY = "ims_sim_category";
     private static final String KEY_FOOTER = "ims_footer";
+    private static final String KEY_RESTART_MODEM = "ims_restart_modem";
 
     private ImsController mController;
 
@@ -42,6 +44,32 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.ims, rootKey);
         mController = ImsController.getInstance(getContext());
+
+        final Preference restart = findPreference(KEY_RESTART_MODEM);
+        if (restart != null) {
+            // The modem caches the configuration it selected, so a newly added
+            // one is not noticed until it re-runs selection.
+            restart.setVisible(mController.canRestartModem());
+            restart.setOnPreferenceClickListener(preference -> {
+                confirmRestartModem();
+                return true;
+            });
+        }
+    }
+
+    private void confirmRestartModem() {
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.ims_restart_modem_title)
+                .setMessage(R.string.ims_restart_modem_message)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.ims_restart_modem_confirm, (dialog, which) -> {
+                    final boolean ok = mController.restartModem();
+                    Toast.makeText(getContext(),
+                            ok ? R.string.ims_restart_modem_done
+                               : R.string.ims_restart_modem_failed,
+                            Toast.LENGTH_LONG).show();
+                })
+                .show();
     }
 
     @Override
