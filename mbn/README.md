@@ -30,13 +30,34 @@ third path:
 mcfg_autoselect_by_uim
 ```
 
-Stock ships no `oem_sw.txt`, and there is no `oem_sw.dig` to keep in step. So
-everything here is indexed in `oem_sw.txt` alone and `mbn_sw.txt` /
-`mbn_sw.dig` are left byte for byte as they shipped. Stock carriers keep
-resolving exactly as before; these are additional.
+Both indexes are used here.
 
-Paths in `oem_sw.txt` are written `mcfg_sw/<path>` and resolve against
-`mcfg_sw/generic/`, matching the layout the module ships.
+`oem_sw.txt` lists these 343 configurations. Stock ships no `oem_sw.txt` and
+there is no `oem_sw.dig` to keep in step, so this costs nothing.
+
+`mbn_sw.txt` replaces the stock copy with every stock entry, in its original
+order, followed by these. 460 entries, none dangling - more coverage than
+stock's 117 or the module's 81, of which 17 point at files that do not exist.
+Replacing it is what the module does; carrying the stock entries through is
+what the module does not, and is why this does not cost you the carriers that
+already worked.
+
+`mbn_sw.dig` is left as stock's. The digest is advisory rather than enforced:
+the module ships a digest from October 2020 against an index from March 2021
+that has 17 dangling entries, and works regardless. A stale digest makes the
+modem rescan, which is the wanted behaviour anyway.
+
+The two indexes use different path forms and are not interchangeable -
+`mbn_sw.txt` entries include `generic/`, `oem_sw.txt` entries are resolved
+against `mcfg_sw/generic/` and do not.
+
+The override is prepended to `PRODUCT_COPY_FILES`, because a duplicate
+destination resolves in favour of the first entry and the rest are silently
+dropped. After a build, confirm the stock copy is the one that lost:
+
+```
+grep mbn_sw.txt $OUT/product_copy_files_ignored.txt
+```
 
 ## Regenerating
 

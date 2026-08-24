@@ -18,10 +18,10 @@ BOARD_SEPOLICY_DIRS += packages/apps/PixelParts/sepolicy
 
 # Extra modem carrier configurations
 #
-# Adds carrier configs the stock modem image does not ship, indexed only by
-# oem_sw.txt, which the modem reads as a second index alongside mbn_sw.txt.
-# Stock's mbn_sw.txt and mbn_sw.dig are left untouched, so every carrier that
-# worked before still resolves. See mbn/README.md.
+# Adds carrier configs the stock modem image does not ship. mbn_sw.txt is
+# replaced with one carrying every stock entry followed by these, and they are
+# listed in oem_sw.txt as well. Stock's entries come through untouched, so
+# every carrier that worked before still resolves. See mbn/README.md.
 include packages/apps/PixelParts/mbn/mbn.mk
 
 # Torch strength control
