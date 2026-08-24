@@ -15,7 +15,6 @@
     <string name="tile_already_added">Tarjeta ya añadida</string>
     <string name="tile_on">Activado</string>
     <string name="tile_off">Desactivado</string>
-    <string name="tile_camera_in_use">Cámara en uso</string>
     <!-- Charge control -->
     <string name="charge_control_title">Control de carga basado en porcentaje</string>
     <string name="charge_control_summary">Controlar cuando el dispositivo se detenga y comience a cargar</string>
@@ -27,15 +26,6 @@
     <string name="stop_below_start_error">¡Ajuste final debe estar por encima del ajuste de inicio!</string>
     <string name="start_above_stop_error">¡Ajuste de inicio debe estar por debajo del ajuste final!</string>
     <string name="charge_control_footer_summary">El control de la carga puede interferir con la carga adaptativa.</string>
-    <!-- Pixel torch -->
-    <string name="pixel_torch_title">Linterna Pixel</string>
-    <string name="pixel_torch_summary">Un servicio configurable de tarjeta de linterna y botón de volumen</string>
-    <string name="pixel_torch_cycle_modes_title">Modos de ciclo</string>
-    <string name="pixel_torch_cycle_modes_summary">Ciclo entre niveles de intensidad predefinidos</string>
-    <string name="pixel_torch_state">Estado: %d</string>
-    <string name="pixel_torch_first_click_title">Primer clic</string>
-    <string name="pixel_torch_second_click_title">Segundo clic</string>
-    <string name="pixel_torch_third_click_title">Tercer clic</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Modo de alto brillo automático</string>
     <string name="auto_hbm_main_switch_title">Usar HBM automático</string>

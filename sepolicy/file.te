@@ -1,0 +1,4 @@
+# The flash LED class devices. Kept apart from sysfs_leds - which on this
+# device also covers the panel backlight - so that granting torch access does
+# not also grant backlight access, and vice versa.
+type sysfs_flash_led, fs_type, sysfs_type;

@@ -15,7 +15,6 @@
     <string name="tile_already_added">A Csempe már hozzá lett adva</string>
     <string name="tile_on">Be</string>
     <string name="tile_off">Ki</string>
-    <string name="tile_camera_in_use">A kamera használatban van</string>
     <!-- Charge control -->
     <string name="charge_control_title">Százalék-bázisú töltésellenőrzés</string>
     <string name="charge_control_summary">Szabályozza, hogy a készülék töltése mikor áll le és mikor indul el</string>
@@ -27,15 +26,6 @@
     <string name="stop_below_start_error">A megállási szintnek a kezdés szintje felett kell lennie!</string>
     <string name="start_above_stop_error">A kezdési szintnek a leállítási szint alatt kell lennie!</string>
     <string name="charge_control_footer_summary">A töltésvezérlés zavarhatja az adaptív töltést.</string>
-    <!-- Pixel torch -->
-    <string name="pixel_torch_title">Pixel-zseblámpa</string>
-    <string name="pixel_torch_summary">Konfigurálható zseblámpa-csempe és hangerőszabályzó-gomb</string>
-    <string name="pixel_torch_cycle_modes_title">A ciklusok módjai</string>
-    <string name="pixel_torch_cycle_modes_summary">Ciklusok az előre meghatározott erősségi szintek között</string>
-    <string name="pixel_torch_state">%d állapotú</string>
-    <string name="pixel_torch_first_click_title">Első kattintás</string>
-    <string name="pixel_torch_second_click_title">Második kattintás</string>
-    <string name="pixel_torch_third_click_title">Harmadik kattintás</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatikus magasfényerő</string>
     <string name="auto_hbm_main_switch_title">Automatikus magasfényerő</string>

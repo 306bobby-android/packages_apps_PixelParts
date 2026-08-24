@@ -1,16 +1,20 @@
-on property:sys.boot_completed=1
+# Both the flash LEDs and the panel backlight are led class devices, and both
+# are 0644 (DEVICE_ATTR_RW), so handing each node to the right uid is enough -
+# no chmod, and in particular nothing world writable.
+#
+# The flash LEDs come from leds-qpnp-flash-v2.ko, so this waits on the module
+# load rather than on an unrelated boot milestone. Physical paths are used
+# throughout because init will not chown through the /sys/class symlinks.
 
-    # HBM
+on property:vendor.all.modules.ready=1
+
+    # Flash LEDs, written by PixelParts' camera provider extension to set torch
+    # strength on behalf of cameraserver.
+    chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_0/brightness
+    chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_1/brightness
+    chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:switch_2/brightness
+
+    # HBM, written by the PixelParts app. device/google/redbull's
+    # init.hardware.rc already does this in early-boot; repeated here so that
+    # including this repo is enough on its own.
     chown system system /sys/class/backlight/panel0-backlight/hbm_mode
-    chmod 0666 /sys/class/backlight/panel0-backlight/hbm_mode
-
-    # Torch
-    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_0/brightness
-    chmod 0666 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_0/brightness
-    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_1/brightness
-    chmod 0666 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_1/brightness
-    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:switch_2/brightness
-    chmod 0666 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:switch_2/brightness
-
-
-

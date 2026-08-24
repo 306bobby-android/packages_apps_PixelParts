@@ -1,1 +1,4 @@
-genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0 u:object_r:sysfs_leds:s0
+# Flash LEDs, at leds@d300 on the pm8150l secondary spmi address. Both bus
+# naming schemes are listed because the kernel has shipped each of them.
+genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300 u:object_r:sysfs_flash_led:s0
+genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300      u:object_r:sysfs_flash_led:s0

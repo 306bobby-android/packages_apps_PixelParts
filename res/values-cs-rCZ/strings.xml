@@ -15,7 +15,6 @@
     <string name="tile_already_added">Dlaždice již byla přidána</string>
     <string name="tile_on">Zapnuto</string>
     <string name="tile_off">Vypnuto</string>
-    <string name="tile_camera_in_use">Fotoaparát se používá</string>
     <!-- Charge control -->
     <string name="charge_control_title">Ovládání nabíjení na základě procent</string>
     <string name="charge_control_summary">Ovládat zařízení kdy se zastaví a začne nabíjet</string>
@@ -27,15 +26,6 @@
     <string name="stop_below_start_error">Úroveň zastavení musí být nad úrovní startu!</string>
     <string name="start_above_stop_error">Úroveň zastavení musí být nad úrovní startu!</string>
     <string name="charge_control_footer_summary">Řízení nabíjení může bránit adaptivnímu nabíjení.</string>
-    <!-- Pixel torch -->
-    <string name="pixel_torch_title">Pixel svítilna</string>
-    <string name="pixel_torch_summary">Služba konfigurovatelných dlaždic a tlačítek hlasitosti</string>
-    <string name="pixel_torch_cycle_modes_title">Režimy cyklu</string>
-    <string name="pixel_torch_cycle_modes_summary">Cyklus mezi předem stanovenými úrovněmi</string>
-    <string name="pixel_torch_state">Status: %d</string>
-    <string name="pixel_torch_first_click_title">První kliknutí</string>
-    <string name="pixel_torch_second_click_title">Druhé kliknutí</string>
-    <string name="pixel_torch_third_click_title">Třetí kliknutí</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatické HBM</string>
     <string name="auto_hbm_main_switch_title">Použít automatické HBM</string>

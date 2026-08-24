@@ -1,0 +1,4 @@
+# PixelParts' camera provider extension is linked into libcameraservice, so
+# torch strength is written from cameraserver itself.
+allow cameraserver sysfs_flash_led:dir search;
+allow cameraserver sysfs_flash_led:file rw_file_perms;

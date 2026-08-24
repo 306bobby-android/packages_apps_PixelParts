@@ -15,7 +15,6 @@
     <string name="tile_already_added">Riquadro già presente</string>
     <string name="tile_on">Abilitato</string>
     <string name="tile_off">Disabilitato</string>
-    <string name="tile_camera_in_use">Fotocamera in uso</string>
     <!-- Charge control -->
     <string name="charge_control_title">Controllo della ricarica basato sulla percentuale</string>
     <string name="charge_control_summary">Controlla quando il dispositivo avvia o ferma la ricarica</string>
@@ -27,15 +26,6 @@
     <string name="stop_below_start_error">Il livello di arresto deve essere superiore al livello di avvio!</string>
     <string name="start_above_stop_error">Il livello di avvio deve essere inferiore al livello di arresto!</string>
     <string name="charge_control_footer_summary">Il controllo della carica può interferire con la ricarica adattativa.</string>
-    <!-- Pixel torch -->
-    <string name="pixel_torch_title">Torcia pixel</string>
-    <string name="pixel_torch_summary">Un servizio per un riquadro torcia e pulsante volume configurabili</string>
-    <string name="pixel_torch_cycle_modes_title">Modalità ciclo</string>
-    <string name="pixel_torch_cycle_modes_summary">Passa automaticamente tra le intensità impostate</string>
-    <string name="pixel_torch_state">Stato: %d</string>
-    <string name="pixel_torch_first_click_title">Primo click</string>
-    <string name="pixel_torch_second_click_title">Secondo click</string>
-    <string name="pixel_torch_third_click_title">Terzo click</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">HBM automatica</string>
     <string name="auto_hbm_main_switch_title">Usa HBM automatica</string>

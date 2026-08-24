@@ -4,8 +4,13 @@
 
 | Category | Feature | Description | QS Tile | Required kernel changes |
 | --- | --- | --- | --- | --- |
-|  | `Saturation` | Control the saturation level of the display | Yes | N/A |
-| **Leds** | `Pixel torch` | Adjust the brightness of the PixelParts flashlight QS-Tile | PixelParts Flashlight QS | N/A |
+| **Display** | `Automatic HBM` | Enable high brightness mode above an ambient light threshold | Automatic HBM | Writable `hbm_mode` backlight node |
+
+Torch brightness is not an app feature. It is provided by
+`libcameraservice_ext_pixelparts`, a camera provider extension that
+`device.mk` links into `libcameraservice`, so the platform's own flashlight
+controls gain a strength range on a camera HAL that does not report one. See
+[camera/CameraProviderExtension.cpp](camera/CameraProviderExtension.cpp).
 
 ## Including PixelParts
 

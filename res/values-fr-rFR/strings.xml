@@ -15,7 +15,6 @@
     <string name="tile_already_added">Tuile déjà ajoutée</string>
     <string name="tile_on">Activé</string>
     <string name="tile_off">Désactivé</string>
-    <string name="tile_camera_in_use">Caméra en cours d\'utilisation</string>
     <!-- Charge control -->
     <string name="charge_control_title">Contrôle de charge basé sur le pourcentage</string>
     <string name="charge_control_summary">Contrôler quand l\'appareil arrête et démarre la charge</string>
@@ -27,15 +26,6 @@
     <string name="stop_below_start_error">Le niveau d\'arrêt doit être supérieur au niveau de départ !</string>
     <string name="start_above_stop_error">Le niveau de départ doit être inférieur au niveau d\'arrêt !</string>
     <string name="charge_control_footer_summary">Le contrôle de la charge peut interférer avec le chargement adaptatif.</string>
-    <!-- Pixel torch -->
-    <string name="pixel_torch_title">Lampe de poche Pixel</string>
-    <string name="pixel_torch_summary">Un service configurable de tuiles pour la lampe de poche et le bouton de volume</string>
-    <string name="pixel_torch_cycle_modes_title">Modes de cycle</string>
-    <string name="pixel_torch_cycle_modes_summary">Cycle entre les niveaux de force prédéfinis</string>
-    <string name="pixel_torch_state">État: %d</string>
-    <string name="pixel_torch_first_click_title">Premier clic</string>
-    <string name="pixel_torch_second_click_title">Deuxième clic</string>
-    <string name="pixel_torch_third_click_title">Troisième clic</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">HBM automatique</string>
     <string name="auto_hbm_main_switch_title">Utiliser le mode haute luminausité automatique</string>

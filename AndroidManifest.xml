@@ -42,44 +42,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Pixel torch activity -->
-        <activity
-            android:name=".pixeltorch.PixelTorchActivity"
-            android:label="@string/pixel_torch_title"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.apps" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/pixel_torch_summary" />
-        </activity>
-
-        <!-- Pixel torch dialog activity -->
-        <activity
-            android:name=".pixeltorch.PixelTorchDialogActivity"
-            android:label="@string/pixel_torch_title"
-            android:theme="@android:style/Theme.DeviceDefault.Dialog"
-            android:exported="true" />
-
-        <!-- Pixel torch tile service -->
-        <service
-            android:name=".pixeltorch.PixelTorchTileService"
-            android:label="@string/pixel_torch_title"
-            android:icon="@drawable/ic_pixel_torch_tile"
-            android:exported="true"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
-                android:value="true" />
-        </service>
-
         <!-- Auto HBM activity -->
         <activity
             android:name=".autohbm.AutoHbmActivity"

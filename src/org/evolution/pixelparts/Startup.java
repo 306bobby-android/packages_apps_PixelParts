@@ -12,18 +12,12 @@ import android.content.Intent;
 import org.evolution.pixelparts.autohbm.AutoHbmActivity;
 import org.evolution.pixelparts.autohbm.AutoHbmFragment;
 import org.evolution.pixelparts.autohbm.AutoHbmTileService;
-import org.evolution.pixelparts.pixeltorch.PixelTorchActivity;
-import org.evolution.pixelparts.pixeltorch.PixelTorchFragment;
-import org.evolution.pixelparts.pixeltorch.PixelTorchTileService;
 import org.evolution.pixelparts.utils.ComponentUtils;
-import org.evolution.pixelparts.utils.FileUtils;
 
 public class Startup extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        final String action = intent.getAction();
-
         // Auto hbm
         AutoHbmFragment.toggleAutoHbmService(context);
 
@@ -37,19 +31,6 @@ public class Startup extends BroadcastReceiver {
                 context,
                 AutoHbmTileService.class,
                 AutoHbmFragment.isHbmSupported(context)
-        );
-
-        // PixelTorch
-        ComponentUtils.toggleComponent(
-                context,
-                PixelTorchActivity.class,
-                PixelTorchFragment.hasTorch(context)
-        );
-
-        ComponentUtils.toggleComponent(
-                context,
-                PixelTorchTileService.class,
-                PixelTorchFragment.hasTorch(context)
         );
     }
 }

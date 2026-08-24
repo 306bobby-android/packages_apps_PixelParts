@@ -7,16 +7,6 @@ package org.evolution.pixelparts;
 
 public class Constants {
 
-    // Pixel torch
-    public static final String KEY_PIXEL_TORCH_CYCLE_MODES = "pixel_torch_cycle_modes";
-    public static final String KEY_PIXEL_TORCH_STATE = "pixel_torch_state";
-    public static final String KEY_PIXEL_TORCH_STRENGTH_1 = "pixel_torch_strength_1";
-    public static final String KEY_PIXEL_TORCH_STRENGTH_2 = "pixel_torch_strength_2";
-    public static final String KEY_PIXEL_TORCH_STRENGTH_3 = "pixel_torch_strength_3";
-    public static final String NODE_TORCH_0 = "/sys/class/leds/led:torch_0/brightness";
-    public static final String NODE_TORCH_1 = "/sys/class/leds/led:torch_1/brightness";
-    public static final String NODE_TORCH_SWITCH = "/sys/class/leds/led:switch_2/brightness";
-
     // AutoHbm
     public static final String KEY_AUTO_HBM = "auto_hbm";
     public static final String KEY_AUTO_HBM_THRESHOLD = "auto_hbm_threshold";

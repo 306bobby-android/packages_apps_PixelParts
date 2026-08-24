@@ -1,0 +1,27 @@
+//
+// Copyright (C) 2024 The Evolution X Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_static {
+    name: "libcameraservice_ext_pixelparts",
+
+    srcs: ["CameraProviderExtension.cpp"],
+
+    // For common/CameraProviderExtension.h, so the linker is not the first
+    // thing to notice if these signatures ever drift.
+    include_dirs: [
+        "frameworks/av/services/camera/libcameraservice",
+    ],
+
+    shared_libs: [
+        "libbase",
+        "liblog",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+}
