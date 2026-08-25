@@ -29,6 +29,7 @@ include packages/apps/PixelParts/mbn/mbn.mk
 # Replaces libcameraservice's weak CameraProviderExtension stubs so that
 # CameraManager.turnOnTorchWithStrengthLevel(), and with it SystemUI's
 # flashlight slider, work on a camera HAL that reports no torch strength
-# range. The library reports itself unsupported when the flash LED nodes are
-# absent, so this is inert on devices that do not have them.
+# range. Enabling this is what makes the platform's flashlight strength UI
+# appear, so only set it on a device whose flash LEDs are reachable through
+# the led class devices the library writes.
 $(call soong_config_set,libcameraservice,ext_lib,libcameraservice_ext_pixelparts)

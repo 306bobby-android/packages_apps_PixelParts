@@ -58,6 +58,9 @@ constexpr int32_t kUnsupportedLevel = 1;
 // being absent - see maxLevel().
 constexpr int32_t kFallbackMaxLevel = 500;
 
+// The driver rounds up to its lowest current step: writing 1 reads back as 12.
+// Harmless, but it means the bottom of the range is coarser than it looks.
+
 std::mutex gLock;
 int32_t gCurrentLevel = 0;  // guarded by gLock
 
@@ -153,9 +156,11 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
     writeNode(kTorchNode0, value);
     writeNode(kTorchNode1, value);
 
-    // The switch node latches the per-LED currents. It has to be cycled for a
-    // new brightness to take effect, including while the torch is already on.
-    writeNode(kSwitchNode, kSwitchOff);
+    // Enabling the switch latches whatever currents the torch nodes hold, so
+    // it is written after them and never zeroed first. Zeroing it turns the
+    // LEDs off and the driver comes back at its own default on the following
+    // enable, which discards the value set two lines earlier - the torch lights
+    // up, the slider moves, and the brightness never changes.
     writeNode(kSwitchNode, kSwitchOn);
 
     {
