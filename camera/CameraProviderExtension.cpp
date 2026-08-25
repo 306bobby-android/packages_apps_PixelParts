@@ -29,10 +29,7 @@
 #include <android-base/parseint.h>
 #include <android-base/strings.h>
 
-#include <unistd.h>
-
 #include <algorithm>
-#include <atomic>
 #include <mutex>
 #include <string>
 
@@ -56,6 +53,11 @@ constexpr const char kSwitchOff[] = "0";
 
 constexpr int32_t kUnsupportedLevel = 1;
 
+// qcom,max-current for these torch LEDs. Used when max_brightness cannot be
+// read at the moment cameraserver asks, which is not the same as the LEDs
+// being absent - see maxLevel().
+constexpr int32_t kFallbackMaxLevel = 500;
+
 std::mutex gLock;
 int32_t gCurrentLevel = 0;  // guarded by gLock
 
@@ -75,30 +77,28 @@ int32_t readInt(const char* path, int32_t defaultValue) {
 // Highest value the torch LEDs accept. The driver takes this from
 // qcom,max-current in the PMIC device tree, so it is a real current limit and
 // not the 255 an led class device otherwise defaults to.
+//
+// This must not depend on the LEDs being probeable at the instant it is first
+// called. CameraProviderManager::fixupTorchStrengthTags() runs exactly once,
+// when the provider is enumerated, and bakes the answer into the camera's
+// static metadata for the rest of the boot. The LED class devices come from
+// leds-qpnp-flash-v2.ko, so a probe losing that race would silently disable
+// torch strength until the next reboot - which is precisely the failure this
+// shipped with. Fall back to the known range instead of giving up.
 int32_t maxLevel() {
-    // Resolved lazily and only cached once it succeeds: cameraserver can reach
-    // us before leds-qpnp-flash-v2.ko has finished loading, and a negative
-    // result must not be allowed to stick.
-    static std::atomic<int32_t> sMaxLevel{kUnsupportedLevel};
-
-    int32_t cached = sMaxLevel.load();
-    if (cached > kUnsupportedLevel) {
-        return cached;
-    }
-
-    if (access(kMaxBrightnessNode, R_OK) != 0 || access(kSwitchNode, F_OK) != 0) {
-        return kUnsupportedLevel;
-    }
-
-    const int32_t resolved = readInt(kMaxBrightnessNode, kUnsupportedLevel);
-    if (resolved <= kUnsupportedLevel) {
-        LOG(WARNING) << "Flash LEDs report no usable brightness range";
-        return kUnsupportedLevel;
-    }
-
-    sMaxLevel.store(resolved);
-    LOG(INFO) << "Torch strength control enabled, " << resolved << " levels";
-    return resolved;
+    static const int32_t sMaxLevel = [] {
+        const int32_t fromNode = readInt(kMaxBrightnessNode, kUnsupportedLevel);
+        if (fromNode > kUnsupportedLevel) {
+            LOG(INFO) << "Torch strength control enabled, " << fromNode
+                      << " levels (read from " << kMaxBrightnessNode << ")";
+            return fromNode;
+        }
+        LOG(WARNING) << "Could not read " << kMaxBrightnessNode
+                     << " (module not loaded yet?), assuming "
+                     << kFallbackMaxLevel << " levels";
+        return kFallbackMaxLevel;
+    }();
+    return sMaxLevel;
 }
 
 void writeNode(const char* path, const std::string& value) {
@@ -134,23 +134,20 @@ int32_t getTorchStrengthLevelExt() {
 }
 
 void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
-    const int32_t max = maxLevel();
-    if (max <= kUnsupportedLevel) {
-        return;
-    }
-
-    std::lock_guard<std::mutex> lock(gLock);
-
+    // Deliberately not holding gLock across the writes below.
+    // CameraProviderManager calls this with its own mInterfaceMutex held, so
+    // blocking here blocks the whole camera service, and anything waiting on
+    // it behind that. The lock guards gCurrentLevel and nothing else.
     if (!enabled) {
         writeNode(kSwitchNode, kSwitchOff);
         writeNode(kTorchNode0, "0");
         writeNode(kTorchNode1, "0");
-        // Left as the level to use next time; cameraserver has already reset
-        // its own copy to the default.
+        // gCurrentLevel is left alone: it is the level to use next time, and
+        // cameraserver has already reset its own copy to the default.
         return;
     }
 
-    const int32_t level = std::clamp(torchStrength, 1, max);
+    const int32_t level = std::clamp(torchStrength, 1, maxLevel());
     const std::string value = std::to_string(level);
 
     writeNode(kTorchNode0, value);
@@ -161,5 +158,8 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
     writeNode(kSwitchNode, kSwitchOff);
     writeNode(kSwitchNode, kSwitchOn);
 
-    gCurrentLevel = level;
+    {
+        std::lock_guard<std::mutex> lock(gLock);
+        gCurrentLevel = level;
+    }
 }
