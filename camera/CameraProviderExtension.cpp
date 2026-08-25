@@ -43,13 +43,14 @@ namespace {
 constexpr const char kTorchNode0[] = "/sys/class/leds/led:torch_0/brightness";
 constexpr const char kTorchNode1[] = "/sys/class/leds/led:torch_1/brightness";
 constexpr const char kSwitchNode[] = "/sys/class/leds/led:switch_2/brightness";
-constexpr const char kMaxBrightnessNode[] = "/sys/class/leds/led:torch_0/max_brightness";
 
-// The switch node is a boolean latch - qpnp_flash_led_brightness_set() only
-// looks at "value > 0" - and its led class device declares no max_brightness,
-// so the LED core clamps it to LED_FULL.
-constexpr const char kSwitchOn[] = "255";
-constexpr const char kSwitchOff[] = "0";
+// The one value ever written to the switch, and it is the value the camera HAL
+// itself writes. Not 255. Although the node is nominally an led class
+// brightness with a max of 255, and any non-zero value reads back as "on",
+// writing 255 and writing 1 are not interchangeable here - see
+// setTorchStrengthLevelExt().
+constexpr const char kSwitchOn[] = "1";
+constexpr const char kMaxBrightnessNode[] = "/sys/class/leds/led:torch_0/max_brightness";
 
 constexpr int32_t kUnsupportedLevel = 1;
 
@@ -142,22 +143,16 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
     // blocking here blocks the whole camera service, and anything waiting on
     // it behind that. The lock guards gCurrentLevel and nothing else.
     if (!enabled) {
-        // Only the switch is written here. The per-LED current nodes are
-        // deliberately left holding their last value.
+        // Nothing to do, and two things to carefully not do.
         //
-        // Zeroing them wedges the torch until the next reboot. On the
-        // following turn-on the HAL enables the switch itself, before this is
-        // reached, and the driver latches the channel current at that instant
-        // - so a current of zero latches the channel off. The real level
-        // written microseconds later cannot recover it, because the switch is
-        // already on and only a 0 -> on transition re-fires the channel. The
-        // symptom is a torch that works exactly once per boot and then reports
-        // AVAILABLE_ON forever with no light, which is easy to misread as a
-        // permissions or HAL ownership problem. A fresh boot works only
-        // because the driver's probe defaults are non-zero.
-        writeNode(kSwitchNode, kSwitchOff);
-        // gCurrentLevel is left alone: it is the level to use next time, and
-        // cameraserver has already reset its own copy to the default.
+        // The currents are left holding their last value. Zeroing them latches
+        // the channel off at the next enable, and no later write recovers it.
+        //
+        // The switch is not written either. Writing 0 to it - at any point,
+        // from any process - leaves the flash dead until the next reboot: the
+        // HAL goes on reporting AVAILABLE_ON and every node reads back the
+        // value a known-good shell script writes, with no light. The HAL turns
+        // the LEDs off through its own path, so there is nothing to do here.
         return;
     }
 
@@ -167,11 +162,14 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
     writeNode(kTorchNode0, value);
     writeNode(kTorchNode1, value);
 
-    // Enabling the switch latches whatever currents the torch nodes hold, so
-    // it is written after them and never zeroed first. Zeroing it turns the
-    // LEDs off and the driver comes back at its own default on the following
-    // enable, which discards the value set two lines earlier - the torch lights
-    // up, the slider moves, and the brightness never changes.
+    // The driver latches the per-channel currents when the switch is asserted,
+    // it does not track them live, so the currents above do nothing on their
+    // own while the torch is already lit - which is the whole strength slider.
+    // Re-asserting the switch after them applies the new value.
+    //
+    // It must be written as 1, the same value the HAL uses, and 0 must never
+    // be written. Bouncing it through 0 to force a transition, or asserting it
+    // as 255, is what wedges the flash until reboot.
     writeNode(kSwitchNode, kSwitchOn);
 
     {
