@@ -18,7 +18,6 @@
 
     <application
         android:name=".PixelPartsApp"
-        android:persistent="true"
         android:icon="@drawable/ic_launcher_settings"
         android:label="@string/pixel_parts_title"
         android:defaultToDeviceProtectedStorage="true"
