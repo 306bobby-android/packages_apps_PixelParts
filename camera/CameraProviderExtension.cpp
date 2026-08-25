@@ -142,9 +142,20 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
     // blocking here blocks the whole camera service, and anything waiting on
     // it behind that. The lock guards gCurrentLevel and nothing else.
     if (!enabled) {
+        // Only the switch is written here. The per-LED current nodes are
+        // deliberately left holding their last value.
+        //
+        // Zeroing them wedges the torch until the next reboot. On the
+        // following turn-on the HAL enables the switch itself, before this is
+        // reached, and the driver latches the channel current at that instant
+        // - so a current of zero latches the channel off. The real level
+        // written microseconds later cannot recover it, because the switch is
+        // already on and only a 0 -> on transition re-fires the channel. The
+        // symptom is a torch that works exactly once per boot and then reports
+        // AVAILABLE_ON forever with no light, which is easy to misread as a
+        // permissions or HAL ownership problem. A fresh boot works only
+        // because the driver's probe defaults are non-zero.
         writeNode(kSwitchNode, kSwitchOff);
-        writeNode(kTorchNode0, "0");
-        writeNode(kTorchNode1, "0");
         // gCurrentLevel is left alone: it is the level to use next time, and
         // cameraserver has already reset its own copy to the default.
         return;

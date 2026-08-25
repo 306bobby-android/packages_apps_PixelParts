@@ -1,0 +1,14 @@
+#
+# Copyright (C) 2024 The Evolution X Project
+#               2024 crDroid Android Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# The fingerprint HAL walks this subtree during startup. It could do so before
+# this repo existed, because leds@d300 was left with the default sysfs label
+# and hal_fingerprint_default may search that. Narrowing the subtree to
+# sysfs_flash_led in genfs_contexts took the access away and cost it three
+# denials on every boot, so it is given back explicitly. Search only - nothing
+# here needs to read the nodes.
+allow hal_fingerprint_default sysfs_flash_led:dir search;
