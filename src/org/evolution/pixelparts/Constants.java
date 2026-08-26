@@ -15,7 +15,4 @@ public class Constants {
     public static final String KEY_PIXEL_TORCH_STRENGTH_2 = "pixel_torch_strength_2";
     public static final String KEY_PIXEL_TORCH_STRENGTH_3 = "pixel_torch_strength_3";
 
-    // Saturation
-    public static final String KEY_SATURATION = "saturation";
-    public static final String KEY_SATURATION_PREVIEW = "saturation_preview";
 }

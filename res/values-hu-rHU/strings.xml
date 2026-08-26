@@ -49,17 +49,10 @@
     <string name="auto_hbm_enable_time_summary">Az időtartam másodpercben, ameddig a fényküszöböt folyamatosan kell tartani a HBM aktiválásához</string>
     <string name="auto_hbm_disable_time_title">Letiltási idő</string>
     <string name="auto_hbm_disable_time_summary">Az időtartam másodpercben, ami után a HBM deaktiválódik, ha a lux-érték a beállított szint alá esik</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Telítettség</string>
-    <string name="saturation_summary">Itt vezérelheti a képrnyő telítettségét</string>
-    <string name="saturation_footer_summary">A színmód megváltoztatása a megjelenítési beállításokban felülírja a telítettségi szintet, amit újra kell alkalmaznia.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value"><xliff:g id="v">%s</xliff:g> értékű</string>
     <string name="custom_seekbar_default_value">alapértelmezés szerint</string>
     <string name="custom_seekbar_default_value_to_set">Alapértelmezetten <xliff:g id="v">%s</xliff:g> értékű\nNyomja meg hosszan a beállításhoz</string>
     <string name="custom_seekbar_default_value_is_set">Az alapértelmezett érték beállítva</string>
     <!-- Image preview -->
-    <string name="image_preview_content_description">Előnézet</string>
-    <string name="image_preview_next_page_content_description">Következő</string>
-    <string name="image_preview_previous_page_content_description">Előző</string>
 </resources>

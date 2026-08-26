@@ -49,17 +49,10 @@
     <string name="auto_hbm_enable_time_summary">Длительность светового порога в секундах для активации HBM</string>
     <string name="auto_hbm_disable_time_title">Отключить время</string>
     <string name="auto_hbm_disable_time_summary">Продолжительность в секундах, в течение которых HBM отключается, если световой порог падает ниже заданного уровня</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Насыщенность</string>
-    <string name="saturation_summary">Контролировать уровень насыщенности дисплея</string>
-    <string name="saturation_footer_summary">Изменение режима цвета в настройках дисплея переопределит уровень насыщенности, что потребует повторного применения.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Значение: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">по умолчанию</string>
     <string name="custom_seekbar_default_value_to_set">Значение по умолчанию: <xliff:g id="v">%s</xliff:g>\nУдерживайте для установки</string>
     <string name="custom_seekbar_default_value_is_set">Установлено значение по умолчанию</string>
     <!-- Image preview -->
-    <string name="image_preview_content_description">Предварительный просмотр</string>
-    <string name="image_preview_next_page_content_description">Следующее</string>
-    <string name="image_preview_previous_page_content_description">Предыдущее</string>
 </resources>

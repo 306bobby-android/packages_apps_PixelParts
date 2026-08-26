@@ -49,17 +49,10 @@
     <string name="auto_hbm_enable_time_summary">Duración en segundos que el umbral de luz debe ser alcanzado para activar HBM</string>
     <string name="auto_hbm_disable_time_title">Hora de desactivación</string>
     <string name="auto_hbm_disable_time_summary">Duración en segundos en los que se desactiva HBM si el nivel de luz cae por debajo del umbral establecido</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Saturación</string>
-    <string name="saturation_summary">Controla el nivel de saturación de la pantalla</string>
-    <string name="saturation_footer_summary">Cambiar el modo de color en los ajustes de pantalla sobreescribirá el nivel de saturación, requiriendo ser establecido de nuevo.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Valor: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">por defecto</string>
     <string name="custom_seekbar_default_value_to_set">Valor predeterminado: <xliff:g id="v">%s</xliff:g>\nMantén pulsado para establecer</string>
     <string name="custom_seekbar_default_value_is_set">\"El valor predeterminado está establecido</string>
     <!-- Image preview -->
-    <string name="image_preview_content_description">Vista previa</string>
-    <string name="image_preview_next_page_content_description">Siguiente</string>
-    <string name="image_preview_previous_page_content_description">Anterior</string>
 </resources>

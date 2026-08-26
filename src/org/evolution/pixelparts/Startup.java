@@ -13,7 +13,6 @@ import org.evolution.pixelparts.pixeltorch.PixelTorchActivity;
 import org.evolution.pixelparts.pixeltorch.PixelTorchFragment;
 import org.evolution.pixelparts.pixeltorch.PixelTorchButtonService;
 import org.evolution.pixelparts.pixeltorch.PixelTorchTileService;
-import org.evolution.pixelparts.saturation.SaturationFragment;
 import org.evolution.pixelparts.utils.ComponentUtils;
 import org.evolution.pixelparts.utils.FileUtils;
 
@@ -42,8 +41,5 @@ public class Startup extends BroadcastReceiver {
                 PixelTorchFragment.hasTorch(context)
         );
 
-        // Saturation
-        SaturationFragment saturationFragment = new SaturationFragment();
-        saturationFragment.restoreSaturationSetting(context);
     }
 }

@@ -49,17 +49,10 @@
     <string name="auto_hbm_enable_time_summary">Тривалість у секундах, протягом якої поріг світла має постійно досягатися, щоб активувати HBM</string>
     <string name="auto_hbm_disable_time_title">Вимкнути час</string>
     <string name="auto_hbm_disable_time_summary">Тривалість у секундах, протягом якої HBM вимикається, якщо поріг освітленості падає нижче встановленого рівня</string>
-    <!-- Saturation -->
-    <string name="saturation_title">Насиченість</string>
-    <string name="saturation_summary">Керування насиченістю дисплею</string>
-    <string name="saturation_footer_summary">Зміна режиму кольору в налаштуваннях екрану призведе до перевизначення рівня насиченості, що вимагає перезастосування.</string>
     <!-- Custom seekbar -->
     <string name="custom_seekbar_value">Значення: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">за замовчуванням</string>
     <string name="custom_seekbar_default_value_to_set">Значення за замовчуванням: <xliff:g id="v">%s</xliff:g>\nУтримуйте для встановлення</string>
     <string name="custom_seekbar_default_value_is_set">Значення за замовчуванням встановлено</string>
     <!-- Image preview -->
-    <string name="image_preview_content_description">Попередній перегляд</string>
-    <string name="image_preview_next_page_content_description">Наступний</string>
-    <string name="image_preview_previous_page_content_description">Попередній</string>
 </resources>
