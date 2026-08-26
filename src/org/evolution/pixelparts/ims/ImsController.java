@@ -23,20 +23,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * Forces the IMS feature set on for carriers that have not been certified for
- * this device.
+ * Forces the IMS feature set on for uncertified carriers, per subscription,
+ * via {@link CarrierConfigManager#overrideConfig}.
  *
- * <p>Where a Magisk module would set {@code persist.dbg.volte_avail_ovr} and
- * friends, this goes through {@link CarrierConfigManager#overrideConfig}, which
- * is the supported route: it is per subscription rather than global, it is
- * reversible by handing back {@code null}, and the platform stores it
- * persistently so it survives a reboot. The debug properties are a single
- * global switch that no longer distinguishes between SIMs.
- *
- * <p>This is only half of the problem. It makes Android <em>offer</em> VoLTE,
- * VoWiFi and NR; whether the modem can actually register depends on it having a
- * usable carrier configuration, which is what the MBN payload is for. The two
- * are independent - on a permissive network this alone is often enough.
+ * <p>This only makes Android offer VoLTE, VoWiFi and NR. Whether the modem can
+ * register also needs a usable carrier configuration - see mbn/README.md.
  */
 public final class ImsController {
 
@@ -72,13 +63,7 @@ public final class ImsController {
                 android.content.pm.PackageManager.FEATURE_TELEPHONY_SUBSCRIPTION);
     }
 
-    /**
-     * Re-applies the user's choice whenever the set of subscriptions changes.
-     *
-     * <p>The platform persists overrides itself, so this exists for the cases
-     * where it drops them: a carrier config update, or a SIM being removed and
-     * re-inserted, both land here.
-     */
+    /** Re-applies the user's choice when subscriptions change. */
     public void start() {
         final Executor executor = Executors.newSingleThreadExecutor();
         mSubscriptionManager.addOnSubscriptionsChangedListener(executor,
@@ -90,22 +75,15 @@ public final class ImsController {
                 });
     }
 
-    /**
-     * Whether the modem can be restarted without rebooting the device.
-     */
+    /** Whether the modem can be restarted without rebooting. */
     public boolean canRestartModem() {
         return mContext.getPackageManager().hasSystemFeature(
                 android.content.pm.PackageManager.FEATURE_TELEPHONY_RADIO_ACCESS);
     }
 
     /**
-     * Restarts the modem so it re-runs carrier configuration selection.
-     *
-     * <p>The modem caches which mcfg it picked, so a configuration that was
-     * not on the device when the SIM was first seen is not noticed on its own.
-     * The Magisk module deals with this by deleting /data/vendor/radio and
-     * qcril.db from its installer; this is the same effect without reaching
-     * into another process's data directory.
+     * Restarts the modem so it re-runs carrier configuration selection, which
+     * it otherwise does only when a SIM is first seen.
      *
      * @return true if the restart was requested
      */
@@ -118,11 +96,7 @@ public final class ImsController {
             Log.i(TAG, "Requested modem restart");
             return true;
         } catch (RuntimeException e) {
-            // rebootModem() throws rather than returning a result:
-            // IllegalStateException when telephony is down, RemoteException
-            // rethrown as a RuntimeException, UnsupportedOperationException
-            // when the feature is absent. All of them are RuntimeException,
-            // which is why they cannot be named individually here.
+            // rebootModem() signals every failure as some RuntimeException.
             Log.e(TAG, "Could not restart the modem", e);
             return false;
         }
@@ -145,13 +119,7 @@ public final class ImsController {
         apply(subId, enabled);
     }
 
-    /**
-     * Re-applies what the user asked for to every active subscription.
-     *
-     * <p>The platform already persists overrides, so this is belt and braces
-     * against them being dropped - a carrier config update or a SIM being
-     * re-inserted can reset them.
-     */
+    /** Re-applies the user's choice to every active subscription. */
     public void restoreAll() {
         for (SubscriptionInfo info : getActiveSubscriptions()) {
             final int subId = info.getSubscriptionId();
@@ -161,12 +129,7 @@ public final class ImsController {
         }
     }
 
-    /**
-     * Whether the config already reads the way we want it to, either because we
-     * applied it or because the carrier publishes it. Keeps
-     * {@link #restoreAll()} from re-issuing an override on every subscription
-     * change.
-     */
+    /** Whether the config already reads the way we want, so we can skip it. */
     private boolean isAlreadyApplied(int subId) {
         final PersistableBundle config = mCarrierConfigManager.getConfigForSubId(subId);
         return config != null
@@ -178,8 +141,7 @@ public final class ImsController {
             return;
         }
         try {
-            // A null bundle drops every previous override and puts the
-            // subscription back on the carrier's production values.
+            // A null bundle restores the carrier's own values.
             mCarrierConfigManager.overrideConfig(
                     subId, enabled ? buildOverrides() : null, true /* persistent */);
             Log.i(TAG, (enabled ? "Applied" : "Cleared") + " IMS override for subId " + subId);
@@ -190,12 +152,8 @@ public final class ImsController {
     }
 
     /**
-     * The values a carrier that supports these features would be publishing.
-     *
-     * <p>Availability alone is not enough: a carrier config that advertises
-     * VoLTE but also demands provisioning, or hides the user-facing toggle,
-     * still leaves the feature unreachable. The provisioning and visibility
-     * keys are here for that reason.
+     * What a carrier supporting these features would publish. Availability
+     * alone is not enough - provisioning and visibility keep it unreachable.
      */
     private static PersistableBundle buildOverrides() {
         final PersistableBundle bundle = new PersistableBundle();
@@ -205,15 +163,14 @@ public final class ImsController {
         bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VT_AVAILABLE_BOOL, true);
         bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL, true);
 
-        // Provisioning. An uncertified carrier will not provision us over the
-        // air, so requiring it would leave the features permanently pending.
+        // An uncertified carrier will not provision us over the air.
         bundle.putBoolean(
                 CarrierConfigManager.KEY_CARRIER_VOLTE_PROVISIONING_REQUIRED_BOOL, false);
         bundle.putBoolean(
                 CarrierConfigManager.KEY_CARRIER_VOLTE_OVERRIDE_WFC_PROVISIONING_BOOL, true);
         bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_IMS_GBA_REQUIRED_BOOL, false);
 
-        // Make sure the platform's own toggles are reachable and default on.
+        // Keep the platform's own toggles reachable and on by default.
         bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_ENHANCED_4G_LTE_BOOL, true);
         bundle.putBoolean(CarrierConfigManager.KEY_HIDE_ENHANCED_4G_LTE_BOOL, false);
         bundle.putBoolean(CarrierConfigManager.KEY_ENHANCED_4G_LTE_ON_BY_DEFAULT_BOOL, true);
@@ -224,7 +181,7 @@ public final class ImsController {
         bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_SUPPORTS_WIFI_ONLY_BOOL, true);
         bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_DEFAULT_WFC_IMS_ENABLED_BOOL, true);
 
-        // 5G, both non-standalone and standalone, plus voice over NR.
+        // 5G NSA and SA, plus voice over NR.
         bundle.putIntArray(CarrierConfigManager.KEY_CARRIER_NR_AVAILABILITIES_INT_ARRAY,
                 new int[] {
                         CarrierConfigManager.CARRIER_NR_AVAILABILITY_NSA,

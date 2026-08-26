@@ -6,14 +6,9 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <!--
-     Deliberately a plain 24dp monochrome glyph with a single fill colour.
-
-     Settings hands injected tiles to IconTinterUtils, which recolours them and
-     may draw a round or squarish background behind them, so anything baked in
-     here fights the user's chosen icon style. crDroidSettings' own ic_volte is
-     28x24 and mixes black and white paths, which disappears into the backdrop
-     under the "solid background, white icon" style - hence a fresh icon rather
-     than a copy of that one.
+     Plain monochrome, single fill colour: Settings restyles injected tiles
+     through IconTinterUtils, so a background or second colour here would fight
+     the user's chosen icon style.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
         android:width="24dp"

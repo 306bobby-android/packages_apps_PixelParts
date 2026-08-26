@@ -5,15 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# The fingerprint HAL walks this subtree during startup. It could do so before
-# this repo existed, because leds@d300 was left with the default sysfs label
-# and hal_fingerprint_default may search that. Narrowing the subtree to
-# sysfs_flash_led in genfs_contexts took the access away and cost it three
-# denials on every boot, so it is given back explicitly.
-#
-# It reads modalias out of the subtree while enumerating devices, so this needs
-# the file read as well as the directory search. Granting only the search moves
-# the denial along one step rather than fixing it, which is exactly what
-# happened the first time round.
+# The fingerprint HAL walks this subtree at startup and reads modalias from it.
+# It could before leds@d300 was narrowed from the default sysfs label.
 allow hal_fingerprint_default sysfs_flash_led:dir search;
 allow hal_fingerprint_default sysfs_flash_led:file r_file_perms;

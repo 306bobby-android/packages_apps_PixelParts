@@ -16,20 +16,11 @@ PRODUCT_PACKAGES += \
 # PixelParts sepolicy
 BOARD_SEPOLICY_DIRS += packages/apps/PixelParts/sepolicy
 
-# Extra modem carrier configurations
-#
-# Adds carrier configs the stock modem image does not ship. mbn_sw.txt is
-# replaced with one carrying every stock entry followed by these, and they are
-# listed in oem_sw.txt as well. Stock's entries come through untouched, so
-# every carrier that worked before still resolves. See mbn/README.md.
+# Extra modem carrier configurations. Stock's entries come through untouched.
+# See mbn/README.md.
 include packages/apps/PixelParts/mbn/mbn.mk
 
-# Torch strength control
-#
-# Replaces libcameraservice's weak CameraProviderExtension stubs so that
-# CameraManager.turnOnTorchWithStrengthLevel(), and with it SystemUI's
-# flashlight slider, work on a camera HAL that reports no torch strength
-# range. Enabling this is what makes the platform's flashlight strength UI
-# appear, so only set it on a device whose flash LEDs are reachable through
-# the led class devices the library writes.
+# Torch strength control. Replaces libcameraservice's weak
+# CameraProviderExtension stubs, which is what surfaces SystemUI's flashlight
+# slider. Only for devices whose flash LEDs are led class devices.
 $(call soong_config_set,libcameraservice,ext_lib,libcameraservice_ext_pixelparts)

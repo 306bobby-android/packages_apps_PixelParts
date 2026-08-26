@@ -5,23 +5,16 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Both the flash LEDs and the panel backlight are led class devices, and both
-# are 0644 (DEVICE_ATTR_RW), so handing each node to the right uid is enough -
-# no chmod, and in particular nothing world writable.
-#
-# The flash LEDs come from leds-qpnp-flash-v2.ko, so this waits on the module
-# load rather than on an unrelated boot milestone. Physical paths are used
-# throughout because init will not chown through the /sys/class symlinks.
+# The nodes are 0644, so a chown is enough. Physical paths because init will
+# not chown through the /sys/class symlinks, and the module load because the
+# flash LEDs come from leds-qpnp-flash-v2.ko.
 
 on property:vendor.all.modules.ready=1
 
-    # Flash LEDs, written by PixelParts' camera provider extension to set torch
-    # strength on behalf of cameraserver.
+    # Written by the camera provider extension on cameraserver's behalf.
     chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_0/brightness
     chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_1/brightness
     chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:switch_2/brightness
 
-    # HBM, written by the PixelParts app. device/google/redbull's
-    # init.hardware.rc already does this in early-boot; repeated here so that
-    # including this repo is enough on its own.
+    # Also done by redbull's init.hardware.rc; repeated so this repo stands alone.
     chown system system /sys/class/backlight/panel0-backlight/hbm_mode

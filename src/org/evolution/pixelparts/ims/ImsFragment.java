@@ -25,12 +25,8 @@ import org.evolution.pixelparts.R;
 import java.util.List;
 
 /**
- * One master switch per SIM.
- *
- * <p>The switches are built from the active subscriptions rather than from a
- * fixed pair, so each one can be labelled with the carrier it actually applies
- * to - "SIM 1" is meaningless when the thing being overridden is that carrier's
- * published configuration.
+ * One master switch per SIM, built from the active subscriptions so each can
+ * be labelled with the carrier whose configuration it overrides.
  */
 public class ImsFragment extends SettingsBasePreferenceFragment {
 
@@ -47,8 +43,7 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
 
         final Preference restart = findPreference(KEY_RESTART_MODEM);
         if (restart != null) {
-            // The modem caches the configuration it selected, so a newly added
-            // one is not noticed until it re-runs selection.
+            // The modem only notices a new configuration when it re-selects.
             restart.setVisible(mController.canRestartModem());
             restart.setOnPreferenceClickListener(preference -> {
                 confirmRestartModem();
@@ -113,8 +108,7 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
         pref.setKey("ims_override_" + subId);
         pref.setTitle(describe(info));
         pref.setSummary(R.string.ims_switch_summary);
-        // The controller is the source of truth, not the preference store, so
-        // that a switch cannot drift from the override that is actually applied.
+        // The controller is the source of truth, not the preference store.
         pref.setPersistent(false);
         pref.setChecked(mController.isEnabled(subId));
 
@@ -131,10 +125,7 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
         return pref;
     }
 
-    /**
-     * Enabling this changes how emergency calls are carried, so it is worth one
-     * deliberate confirmation rather than a silent flip.
-     */
+    /** Enabling this changes how emergency calls are carried. */
     private void confirmEnable(int subId, SwitchPreferenceCompat pref) {
         new AlertDialog.Builder(getContext())
                 .setTitle(R.string.ims_warning_title)
@@ -147,11 +138,7 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
                 .show();
     }
 
-    /**
-     * A carrier config override only reaches the modem when it re-registers,
-     * so the modem is restarted on both edges. Doing it only when switching on
-     * would leave switching off looking like it had not worked.
-     */
+    /** Restarted on both edges: an override only lands when the modem re-registers. */
     private void applyAndRestart(int subId, boolean enabled) {
         mController.setEnabled(subId, enabled);
         final boolean restarted = mController.restartModem();

@@ -9,8 +9,8 @@ cc_library_static {
 
     srcs: ["CameraProviderExtension.cpp"],
 
-    // For common/CameraProviderExtension.h, so the linker is not the first
-    // thing to notice if these signatures ever drift.
+    // For common/CameraProviderExtension.h, so signature drift is a compile
+    // error rather than a link error.
     include_dirs: [
         "frameworks/av/services/camera/libcameraservice",
     ],

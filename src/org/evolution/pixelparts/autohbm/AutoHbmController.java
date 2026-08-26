@@ -30,14 +30,10 @@ import org.evolution.pixelparts.utils.FileUtils;
 /**
  * Drives the panel's high brightness mode from the ambient light sensor.
  *
- * <p>Owned by {@link org.evolution.pixelparts.PixelPartsApp} rather than by a
- * service: the previous implementation started a plain background service and
- * tracked whether it was running in a static boolean, which went out of step
- * with reality the first time the process was restarted, leaving HBM stuck on
- * or the sensor listener leaked.
- *
- * <p>Both edges are debounced and the release threshold sits below the trigger
- * threshold, so light hovering around the threshold cannot pulse the backlight.
+ * <p>Owned by {@link org.evolution.pixelparts.PixelPartsApp} rather than a
+ * service, whose running state could drift across a process restart. Both
+ * edges are debounced, and the release threshold sits below the trigger one,
+ * so light hovering at the threshold cannot pulse the backlight.
  */
 public final class AutoHbmController implements SensorEventListener {
 
@@ -47,12 +43,7 @@ public final class AutoHbmController implements SensorEventListener {
     private static final int DEFAULT_ENABLE_TIME = 0;
     private static final int DEFAULT_DISABLE_TIME = 1;
 
-    /**
-     * Light has to fall this far below the threshold before HBM is released,
-     * as a fraction of the threshold. Without a gap, ambient light sitting on
-     * the threshold flips HBM on and off repeatedly and the backlight visibly
-     * pulses.
-     */
+    /** How far light must fall below the threshold before HBM is released. */
     private static final int HYSTERESIS_PERCENT = 10;
     private static final int HYSTERESIS_FLOOR_LUX = 500;
 
@@ -82,8 +73,7 @@ public final class AutoHbmController implements SensorEventListener {
             } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
                 mHandler.post(() -> {
                     stopListening();
-                    // HBM has no meaning with the panel off, and leaving it set
-                    // means the next screen on starts at full brightness.
+                    // Otherwise the next screen on starts at full brightness.
                     if (isSupported()) {
                         setHbm(false);
                     }
@@ -112,21 +102,15 @@ public final class AutoHbmController implements SensorEventListener {
         return sInstance;
     }
 
-    /**
-     * Whether this device exposes an HBM node at all. Checked by existence
-     * rather than writability, because init may not have handed the node over
-     * yet when this is first asked.
-     */
+    /** Existence, not writability: init may not have chowned the node yet. */
     public static boolean isSupported() {
         return FileUtils.fileExists(Constants.NODE_HBM);
     }
 
     /** Starts tracking the user setting. Safe to call more than once. */
     public void start() {
-        // Only a missing light sensor is permanent. The HBM node comes from
-        // msm_drm.ko, so it is deliberately not checked here - this runs early
-        // enough that a missing node would mean giving up for the whole boot.
-        // isSupported() is consulted per decision instead.
+        // Only a missing light sensor is permanent. The HBM node arrives with
+        // msm_drm.ko, so isSupported() is consulted per decision instead.
         if (mLightSensor == null) {
             Log.i(TAG, "No light sensor, automatic HBM unavailable");
             return;
@@ -205,9 +189,8 @@ public final class AutoHbmController implements SensorEventListener {
         final float lux = event.values[0];
         final long now = SystemClock.elapsedRealtime();
 
-        // HBM on the lock screen is not wanted, and folding it into the
-        // predicate means an appearing keyguard releases HBM through the
-        // normal debounced path instead of leaving it stuck on.
+        // In the predicate, so an appearing keyguard releases HBM through the
+        // normal debounced path rather than leaving it stuck on.
         final boolean wantHbm = lux >= threshold && !mKeyguardManager.isKeyguardLocked();
 
         if (wantHbm) {
@@ -221,8 +204,7 @@ public final class AutoHbmController implements SensorEventListener {
             return;
         }
 
-        // Only start the release timer once light is clear of the threshold,
-        // so that readings jittering across it hold the current state.
+        // Start the release timer only once light is clear of the threshold.
         if (lux >= releaseThreshold(threshold) && !mKeyguardManager.isKeyguardLocked()) {
             return;
         }

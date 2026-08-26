@@ -62,9 +62,6 @@
             <meta-data
                 android:name="com.android.settings.summary"
                 android:resource="@string/ims_summary" />
-            <!-- Settings tints this itself, and crDroid's icon style setting
-                 restyles it from DashboardFeatureProviderImpl, so the drawable
-                 stays a plain monochrome glyph. -->
             <meta-data
                 android:name="com.android.settings.icon"
                 android:resource="@drawable/ic_ims" />

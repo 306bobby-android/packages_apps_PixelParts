@@ -4,21 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Torch strength control for flash LEDs that the camera HAL does not expose.
-//
-// The QCOM camera HAL on this platform reports no
-// ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL, so cameraserver fills in 1 and
-// every consumer of torch strength switches itself off - including SystemUI's
-// flashlight slider and the percentage subtitle on its tile. The LEDs are
-// perfectly capable of it, they are just only reachable through their led
-// class devices.
-//
-// These five symbols are declared weak in libcameraservice
-// (common/CameraProviderExtension.cpp). Naming this library in
-// soong_config_set(libcameraservice, ext_lib, ...) puts it in
-// libcameraservice's whole_static_libs, where these strong definitions win
-// over the weak defaults and CameraProviderManager routes torch strength here
-// instead of to the HAL.
+// Torch strength through the flash LED class devices, which the camera HAL
+// does not expose: it reports no ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL, so
+// SystemUI's slider stays hidden. These symbols are weak in libcameraservice;
+// soong_config_set(libcameraservice, ext_lib, ...) links this in over them.
 
 #define LOG_TAG "CameraProviderExtensionPixelParts"
 
@@ -43,24 +32,15 @@ namespace {
 constexpr const char kTorchNode0[] = "/sys/class/leds/led:torch_0/brightness";
 constexpr const char kTorchNode1[] = "/sys/class/leds/led:torch_1/brightness";
 constexpr const char kSwitchNode[] = "/sys/class/leds/led:switch_2/brightness";
-
-// The one value ever written to the switch, and it is the value the camera HAL
-// itself writes. Not 255. Although the node is nominally an led class
-// brightness with a max of 255, and any non-zero value reads back as "on",
-// writing 255 and writing 1 are not interchangeable here - see
-// setTorchStrengthLevelExt().
-constexpr const char kSwitchOn[] = "1";
 constexpr const char kMaxBrightnessNode[] = "/sys/class/leds/led:torch_0/max_brightness";
+
+// The value the HAL itself writes. 0 or 255 wedges the flash until reboot.
+constexpr const char kSwitchOn[] = "1";
 
 constexpr int32_t kUnsupportedLevel = 1;
 
-// qcom,max-current for these torch LEDs. Used when max_brightness cannot be
-// read at the moment cameraserver asks, which is not the same as the LEDs
-// being absent - see maxLevel().
+// qcom,max-current, used when max_brightness cannot be read yet.
 constexpr int32_t kFallbackMaxLevel = 500;
-
-// The driver rounds up to its lowest current step: writing 1 reads back as 12.
-// Harmless, but it means the bottom of the range is coarser than it looks.
 
 std::mutex gLock;
 int32_t gCurrentLevel = 0;  // guarded by gLock
@@ -78,17 +58,10 @@ int32_t readInt(const char* path, int32_t defaultValue) {
     return value;
 }
 
-// Highest value the torch LEDs accept. The driver takes this from
-// qcom,max-current in the PMIC device tree, so it is a real current limit and
-// not the 255 an led class device otherwise defaults to.
-//
-// This must not depend on the LEDs being probeable at the instant it is first
-// called. CameraProviderManager::fixupTorchStrengthTags() runs exactly once,
-// when the provider is enumerated, and bakes the answer into the camera's
-// static metadata for the rest of the boot. The LED class devices come from
-// leds-qpnp-flash-v2.ko, so a probe losing that race would silently disable
-// torch strength until the next reboot - which is precisely the failure this
-// shipped with. Fall back to the known range instead of giving up.
+// CameraProviderManager::fixupTorchStrengthTags() calls this once at provider
+// enumeration and bakes the result into static metadata for the whole boot,
+// which can be before leds-qpnp-flash-v2.ko has probed. Fall back to the known
+// range rather than lose that race and report unsupported until reboot.
 int32_t maxLevel() {
     static const int32_t sMaxLevel = [] {
         const int32_t fromNode = readInt(kMaxBrightnessNode, kUnsupportedLevel);
@@ -114,15 +87,11 @@ void writeNode(const char* path, const std::string& value) {
 }  // namespace
 
 bool supportsTorchStrengthControlExt() {
-    // Reported as unsupported when the LED nodes are missing, so that this
-    // library stays harmless on any device that picks it up without the
-    // matching flash LED layout.
+    // False when the LED nodes are missing, so this stays harmless elsewhere.
     return maxLevel() > kUnsupportedLevel;
 }
 
 int32_t getTorchDefaultStrengthLevelExt() {
-    // cameraserver applies this whenever the torch is switched on without an
-    // explicit level, so it is what a plain setTorchMode() gets.
     return maxLevel();
 }
 
@@ -132,27 +101,17 @@ int32_t getTorchMaxStrengthLevelExt() {
 
 int32_t getTorchStrengthLevelExt() {
     std::lock_guard<std::mutex> lock(gLock);
-    // Never 0: the framework treats the strength level as 1-based, and this is
-    // read before anything has been set.
+    // Never 0: the framework treats the level as 1-based.
     return gCurrentLevel > 0 ? gCurrentLevel : getTorchDefaultStrengthLevelExt();
 }
 
 void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
-    // Deliberately not holding gLock across the writes below.
-    // CameraProviderManager calls this with its own mInterfaceMutex held, so
-    // blocking here blocks the whole camera service, and anything waiting on
-    // it behind that. The lock guards gCurrentLevel and nothing else.
+    // gLock guards gCurrentLevel only. CameraProviderManager holds its
+    // mInterfaceMutex across this call, so the writes stay outside the lock.
     if (!enabled) {
-        // Nothing to do, and two things to carefully not do.
-        //
-        // The currents are left holding their last value. Zeroing them latches
-        // the channel off at the next enable, and no later write recovers it.
-        //
-        // The switch is not written either. Writing 0 to it - at any point,
-        // from any process - leaves the flash dead until the next reboot: the
-        // HAL goes on reporting AVAILABLE_ON and every node reads back the
-        // value a known-good shell script writes, with no light. The HAL turns
-        // the LEDs off through its own path, so there is nothing to do here.
+        // The HAL turns the LEDs off itself. Zeroing the currents would latch
+        // the channel off at the next enable, and writing the switch at all
+        // wedges the flash.
         return;
     }
 
@@ -162,14 +121,8 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
     writeNode(kTorchNode0, value);
     writeNode(kTorchNode1, value);
 
-    // The driver latches the per-channel currents when the switch is asserted,
-    // it does not track them live, so the currents above do nothing on their
-    // own while the torch is already lit - which is the whole strength slider.
-    // Re-asserting the switch after them applies the new value.
-    //
-    // It must be written as 1, the same value the HAL uses, and 0 must never
-    // be written. Bouncing it through 0 to force a transition, or asserting it
-    // as 255, is what wedges the flash until reboot.
+    // The driver latches the currents when the switch is asserted rather than
+    // tracking them live, so re-asserting is what applies a level while lit.
     writeNode(kSwitchNode, kSwitchOn);
 
     {
