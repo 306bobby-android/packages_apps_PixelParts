@@ -11,6 +11,9 @@ PRODUCT_PACKAGES += \
     init.pixelparts.rc
 # PixelParts sepolicy
 BOARD_SEPOLICY_DIRS += packages/apps/PixelParts/sepolicy
+# Extra modem carrier configurations. Stock's entries come through untouched.
+# See mbn/README.md.
+include packages/apps/PixelParts/mbn/mbn.mk
 # Torch strength control. Replaces libcameraservice's weak
 # CameraProviderExtension stubs, which is what surfaces SystemUI's flashlight
 # slider. Only for devices whose flash LEDs are led class devices.
