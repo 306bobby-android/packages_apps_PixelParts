@@ -1,0 +1,9 @@
+#
+# Copyright (C) 2024 The Evolution X Project
+#               2024 crDroid Android Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# Kept apart from sysfs_leds, which here also covers the panel backlight.
+type sysfs_flash_led, fs_type, sysfs_type;

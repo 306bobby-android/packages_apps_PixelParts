@@ -1,10 +1,20 @@
 ![example](https://raw.githubusercontent.com/Evolution-XYZ-Devices/packages_apps_PixelParts/udc/readme_resources/PixelParts.png)
+extension for the one flashlight feature the camera HAL does not report.
 
 ## Current features
 
 | Category | Feature | Description | QS Tile | Required kernel changes |
 | --- | --- | --- | --- | --- |
-| **Leds** | `Pixel torch` | Adjust the brightness of the PixelParts flashlight QS-Tile | PixelParts Flashlight QS | N/A |
+### Torch brightness
+Torch brightness is deliberately not an app feature. The camera HAL here
+reports no `ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL`, so cameraserver
+substitutes `1` and everything that consumes torch strength disables itself -
+including SystemUI's own flashlight slider, which is otherwise ready to use.
+supplies the strength range from the flash LED class devices instead.
+`libcameraservice` declares those entry points weak and picks a replacement
+through `soong_config_variable("libcameraservice", "ext_lib")`, which
+own flashlight controls then work as they were written to, and
+`CameraManager.turnOnTorchWithStrengthLevel()` works for any app.
 
 ## Including PixelParts
 
@@ -24,6 +34,13 @@ include packages/apps/PixelParts/device.mk
 ```
 
 This line includes the [device.mk](https://github.com/Evolution-XYZ-Devices/packages_apps_PixelParts/blob/udc/device.mk) file from the PixelParts repository, which will add the PixelParts application, its initialization script (init.rc), and the necessary security policies (sepolicies) to your AOSP build during compilation.
+its sepolicy, and the camera provider extension.
+| `/sys/class/leds/led:torch_0/brightness` | Torch strength |
+| `/sys/class/leds/led:torch_1/brightness` | Torch strength |
+| `/sys/class/leds/led:switch_2/brightness` | Torch strength |
+| `/sys/class/leds/led:torch_0/max_brightness` | Torch strength range |
+[`init/init.pixelparts.rc`](init/init.pixelparts.rc) hands each node to the
+uid that writes it, and [`sepolicy/`](sepolicy) labels the flash LEDs. Both
 
 ## Testing changes
 
@@ -35,6 +52,8 @@ Lunch your device and run the following cmd:
 m PixelParts
 ```
 - This also assumes you are already running an AOSP build including PixelParts as a priv-app in /system_ext.
+linked into `libcameraservice`, so it needs `m libcameraservice` and a
+cameraserver restart, or a full build.
 
 ## Credits
 

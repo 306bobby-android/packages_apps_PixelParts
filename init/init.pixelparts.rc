@@ -1,0 +1,20 @@
+#
+# Copyright (C) 2024 The Evolution X Project
+#               2024 crDroid Android Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# The nodes are 0644, so a chown is enough. Physical paths because init will
+# not chown through the /sys/class symlinks, and the module load because the
+# flash LEDs come from leds-qpnp-flash-v2.ko.
+
+on property:vendor.all.modules.ready=1
+
+    # Written by the camera provider extension on cameraserver's behalf.
+    chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_0/brightness
+    chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:torch_1/brightness
+    chown cameraserver cameraserver /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm8150l@5:qcom,leds@d300/leds/led:switch_2/brightness
+
+    # Also done by redbull's init.hardware.rc; repeated so this repo stands alone.
+    chown system system /sys/class/backlight/panel0-backlight/hbm_mode

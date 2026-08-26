@@ -1,0 +1,22 @@
+//
+// Copyright (C) 2023-2024 The Evolution X Project
+//               2024 crDroid Android Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// vendor: true is load bearing, despite PixelParts itself being
+// system_ext. Commands in /vendor/etc/init run as vendor_init, and only
+// vendor_init can chown a sysfs node: system/sepolicy grants
+//
+//     allow vendor_init { fs_type ... }:file { open read setattr map };
+//
+// with no sysfs exclusion, while the equivalent rule for init excludes
+// -sysfs_type outright. Moving this to system_ext to match the app would
+// make init the one running these commands, and every chown below would be
+// denied.
+prebuilt_etc {
+    name: "init.pixelparts.rc",
+    src: "init.pixelparts.rc",
+    sub_dir: "init",
+    vendor: true,
+}

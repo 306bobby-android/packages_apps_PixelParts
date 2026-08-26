@@ -8,7 +8,6 @@ allow pixelparts_app {
   activity_task_service
   audio_service
   autofill_service
-  cameraserver_service
   content_capture_service
   device_state_service
   game_service
@@ -30,9 +29,9 @@ allow pixelparts_app system_app_data_file:{ file lnk_file } create_file_perms;
 allow pixelparts_app system_data_file:dir search;
 
 allow pixelparts_app {
-  sysfs_leds
 }:file rw_file_perms;
 
 allow pixelparts_app {
-  sysfs_leds
 }:dir r_dir_perms;
+allow pixelparts_app sysfs_leds:dir r_dir_perms;
+allow pixelparts_app sysfs_leds:file rw_file_perms;
