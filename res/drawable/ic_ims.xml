@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2024 The Evolution X Project
+                   2024 crDroid Android Project
+
+     SPDX-License-Identifier: Apache-2.0
+-->
+<!--
+     Deliberately a plain 24dp monochrome glyph with a single fill colour.
+
+     Settings hands injected tiles to IconTinterUtils, which recolours them and
+     may draw a round or squarish background behind them, so anything baked in
+     here fights the user's chosen icon style. crDroidSettings' own ic_volte is
+     28x24 and mixes black and white paths, which disappears into the backdrop
+     under the "solid background, white icon" style - hence a fresh icon rather
+     than a copy of that one.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0"
+        android:tint="?android:attr/colorControlNormal">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M20,15.5c-1.25,0 -2.45,-0.2 -3.57,-0.57c-0.35,-0.11 -0.74,-0.03 -1.02,0.24l-2.2,2.2c-2.83,-1.44 -5.15,-3.75 -6.59,-6.58l2.2,-2.21c0.28,-0.27 0.36,-0.66 0.25,-1.01C8.7,6.45 8.5,5.25 8.5,4c0,-0.55 -0.45,-1 -1,-1H4c-0.55,0 -1,0.45 -1,1c0,9.39 7.61,17 17,17c0.55,0 1,-0.45 1,-1v-3.5C21,15.95 20.55,15.5 20,15.5z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M19,12h2c0,-4.97 -4.03,-9 -9,-9v2C15.87,5 19,8.13 19,12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M15,12h2c0,-2.76 -2.24,-5 -5,-5v2C13.66,9 15,10.34 15,12z" />
+</vector>
