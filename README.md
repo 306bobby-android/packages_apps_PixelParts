@@ -5,6 +5,7 @@ extension for the one flashlight feature the camera HAL does not report.
 
 | Category | Feature | Description | QS Tile | Required kernel changes |
 | --- | --- | --- | --- | --- |
+| **Display** | `Automatic HBM` | Enable high brightness mode above an ambient light threshold | Automatic HBM | A writable `hbm_mode` backlight node |
 ### Torch brightness
 Torch brightness is deliberately not an app feature. The camera HAL here
 reports no `ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL`, so cameraserver
@@ -35,6 +36,7 @@ include packages/apps/PixelParts/device.mk
 
 This line includes the [device.mk](https://github.com/Evolution-XYZ-Devices/packages_apps_PixelParts/blob/udc/device.mk) file from the PixelParts repository, which will add the PixelParts application, its initialization script (init.rc), and the necessary security policies (sepolicies) to your AOSP build during compilation.
 its sepolicy, and the camera provider extension.
+| `/sys/class/backlight/panel0-backlight/hbm_mode` | Automatic HBM |
 | `/sys/class/leds/led:torch_0/brightness` | Torch strength |
 | `/sys/class/leds/led:torch_1/brightness` | Torch strength |
 | `/sys/class/leds/led:switch_2/brightness` | Torch strength |

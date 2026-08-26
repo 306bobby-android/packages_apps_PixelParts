@@ -12,6 +12,7 @@
           android:versionName="2.0" >
 
     <application
+        android:name=".PixelPartsApp"
         android:icon="@drawable/ic_launcher_settings"
         android:label="@string/pixel_parts_title"
         android:defaultToDeviceProtectedStorage="true"
@@ -56,6 +57,9 @@
 
         <service
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+        <!-- Auto HBM activity -->
+            android:name=".autohbm.AutoHbmActivity"
+            android:label="@string/auto_hbm_title"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -63,8 +67,13 @@
             <meta-data
                 android:name="android.accessibilityservice"
         </service>
+                android:resource="@string/auto_hbm_summary" />
 
+        <!-- Auto HBM tile service -->
         <service
+            android:name=".autohbm.AutoHbmTileService"
+            android:label="@string/auto_hbm_title"
+            android:icon="@drawable/ic_auto_hbm_tile"
             android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

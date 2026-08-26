@@ -9,6 +9,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import org.evolution.pixelparts.autohbm.AutoHbmActivity;
+import org.evolution.pixelparts.autohbm.AutoHbmController;
+import org.evolution.pixelparts.autohbm.AutoHbmTileService;
 import org.evolution.pixelparts.utils.ComponentUtils;
 import org.evolution.pixelparts.utils.FileUtils;
 
@@ -18,12 +21,17 @@ public class Startup extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
 
+        // Auto hbm
         ComponentUtils.toggleComponent(
                 context,
+                AutoHbmActivity.class,
+                AutoHbmController.isSupported()
         );
 
         ComponentUtils.toggleComponent(
                 context,
+                AutoHbmTileService.class,
+                AutoHbmController.isSupported()
         );
 
         ComponentUtils.toggleComponent(
