@@ -12,6 +12,8 @@ import android.content.Intent;
 import org.evolution.pixelparts.autohbm.AutoHbmActivity;
 import org.evolution.pixelparts.autohbm.AutoHbmController;
 import org.evolution.pixelparts.autohbm.AutoHbmTileService;
+import org.evolution.pixelparts.ims.ImsActivity;
+import org.evolution.pixelparts.ims.ImsController;
 import org.evolution.pixelparts.utils.ComponentUtils;
 import org.evolution.pixelparts.utils.FileUtils;
 
@@ -34,6 +36,7 @@ public class Startup extends BroadcastReceiver {
                 AutoHbmController.isSupported()
         );
 
+        // IMS
         ComponentUtils.toggleComponent(
                 context,
         );

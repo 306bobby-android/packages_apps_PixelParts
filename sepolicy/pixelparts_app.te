@@ -23,6 +23,8 @@ allow pixelparts_app {
   trust_service
   voiceinteraction_service
 }:service_manager find;
+# carrier_config, isub and phone are radio_service, not app_api_service.
+allow pixelparts_app radio_service:service_manager find;
 
 allow pixelparts_app system_app_data_file:dir create_dir_perms;
 allow pixelparts_app system_app_data_file:{ file lnk_file } create_file_perms;

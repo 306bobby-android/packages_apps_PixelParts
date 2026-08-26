@@ -49,4 +49,12 @@
     <string name="custom_seekbar_default_value_is_set">Default value is set</string>
 
     <!-- Image preview -->
+    <!-- IMS -->
+    <string name="ims_title">VoLTE, VoWiFi and 5G</string>
+    <string name="ims_summary">Offer IMS features on carriers that have not certified them for this device</string>
+    <string name="ims_sim_category_title">Force IMS features</string>
+    <string name="ims_switch_summary">Advertise VoLTE, Wi\u2011Fi calling, video calling and 5G as available, and skip carrier provisioning. The modem restarts when this is changed.</string>
+    <string name="ims_sim_slot">SIM <xliff:g id="slot" example="1">%1$d</xliff:g></string>
+    <string name="ims_sim_slot_carrier">SIM <xliff:g id="slot" example="1">%1$d</xliff:g> \u2014 <xliff:g id="carrier" example="Vodafone">%2$s</xliff:g></string>
+    <string name="ims_no_sim_summary">Insert a SIM to configure IMS features.</string>
 </resources>

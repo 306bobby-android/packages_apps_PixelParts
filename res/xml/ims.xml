@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2024 The Evolution X Project
+                   2024 crDroid Android Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.android.settingslib.widget.TopIntroPreference
+        android:key="ims_intro"
+        android:title="@string/ims_summary" />
+
+    <!-- Populated at runtime, one switch per active subscription. -->
+    <PreferenceCategory
+        android:key="ims_sim_category"
+        android:title="@string/ims_sim_category_title" />
+
+    <Preference
+        android:key="ims_restart_modem"
+        android:title="@string/ims_restart_modem_title"
+        android:summary="@string/ims_restart_modem_summary" />
+
+    <com.android.settingslib.widget.FooterPreference
+        android:key="ims_footer"
+        android:title="@string/ims_footer_summary"
+        android:selectable="false" />
+</PreferenceScreen>

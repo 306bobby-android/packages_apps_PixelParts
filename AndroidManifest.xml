@@ -11,6 +11,8 @@
           android:versionCode="2"
           android:versionName="2.0" >
 
+    <!-- Reading the active subscriptions, and overriding their carrier config -->
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
     <application
         android:name=".PixelPartsApp"
         android:icon="@drawable/ic_launcher_settings"
@@ -43,7 +45,9 @@
             </intent-filter>
         </activity>
 
+        <!-- IMS activity -->
         <activity
+            android:name=".ims.ImsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
