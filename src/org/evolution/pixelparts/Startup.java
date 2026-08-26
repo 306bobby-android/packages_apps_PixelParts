@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2023-2024 The Evolution X Project
+ *               2024 crDroid Android Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -15,14 +16,11 @@ import org.evolution.pixelparts.autohbm.AutoHbmTileService;
 import org.evolution.pixelparts.ims.ImsActivity;
 import org.evolution.pixelparts.ims.ImsController;
 import org.evolution.pixelparts.utils.ComponentUtils;
-import org.evolution.pixelparts.utils.FileUtils;
 
 public class Startup extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        final String action = intent.getAction();
-
         // Auto hbm
         ComponentUtils.toggleComponent(
                 context,
@@ -39,7 +37,8 @@ public class Startup extends BroadcastReceiver {
         // IMS
         ComponentUtils.toggleComponent(
                 context,
+                ImsActivity.class,
+                ImsController.isSupported(context)
         );
-
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2023-2024 The Evolution X Project
+                   2024 crDroid Android Project
      SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -12,7 +13,9 @@
           android:versionName="2.0" >
 
     <!-- Reading the active subscriptions, and overriding their carrier config -->
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+
     <application
         android:name=".PixelPartsApp"
         android:icon="@drawable/ic_launcher_settings"
@@ -48,30 +51,40 @@
         <!-- IMS activity -->
         <activity
             android:name=".ims.ImsActivity"
+            android:label="@string/ims_title"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
             <meta-data
                 android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.apps" />
+                android:value="com.android.settings.category.ia.wireless" />
             <meta-data
                 android:name="com.android.settings.summary"
+                android:resource="@string/ims_summary" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_ims" />
+            <meta-data
+                android:name="com.android.settings.icon_tintable"
+                android:value="true" />
         </activity>
 
-        <service
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
         <!-- Auto HBM activity -->
+        <activity
             android:name=".autohbm.AutoHbmActivity"
             android:label="@string/auto_hbm_title"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
             <meta-data
-                android:name="android.accessibilityservice"
-        </service>
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.display" />
+            <meta-data
+                android:name="com.android.settings.summary"
                 android:resource="@string/auto_hbm_summary" />
+        </activity>
 
         <!-- Auto HBM tile service -->
         <service
@@ -88,16 +101,5 @@
                 android:value="true" />
         </service>
 
-        <activity
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-        </activity>
     </application>
 </manifest>

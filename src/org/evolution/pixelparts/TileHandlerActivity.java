@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2023 iusmac <iusico.maxim@libero.it>
+ *               2024 crDroid Android Project
  * SPDX-License-Identifier: MIT
  */
 

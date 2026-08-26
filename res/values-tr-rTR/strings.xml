@@ -7,26 +7,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- PixelParts -->
     <string name="pixel_parts_title">Pixel Araçları</string>
-    <string name="kernel_node_access_error">Kernel devresine erişim başarısız oldu! Lütfen sysfs veya procfs yolunun doğru olup olmadığını, gerekli izinlere sahip olup olmadığını ve SELinux durumunun doğru ayarlanıp ayarlanmadığını kontrol edin.</string>
-    <string name="kernel_node_returned_value_unknown">Düğümün döndürdüğü değer için dize kaynağı bulunamadı.</string>
     <string name="tile_add">Kutu ekle</string>
     <string name="tile_added">Kutu eklendi</string>
     <string name="tile_not_added">Kutu eklenmedi</string>
     <string name="tile_already_added">Kutu zaten ekli</string>
     <string name="tile_on">Açık</string>
     <string name="tile_off">Kapalı</string>
-    <string name="tile_camera_in_use">Kamera kullanımda</string>
-    <!-- Charge control -->
-    <string name="charge_control_title">Yüzde bazlı şarj kontrolü</string>
-    <string name="charge_control_summary">Cihazın ne zaman duracağını ve şarj olmaya başlayacağını kontrol edin</string>
-    <string name="charge_control_main_switch_title">Yüzdeye dayalı şarj kontrolünü kullanın</string>
-    <string name="stop_charging_title">Şarj etmeyi durdurma seviyesi</string>
-    <string name="stop_charging_summary">Ayarlanan yüzdeye ulaşıldığında şarjı durdurun</string>
-    <string name="start_charging_title">Şarj etmeyi başlatma seviyesi</string>
-    <string name="start_charging_summary">Ayarlanan yüzdeye ulaşıldığında şarj etmeye devam edin</string>
-    <string name="stop_below_start_error">Durdurma seviyesi başlatma seviyesinin üstünde olmalıdır!</string>
-    <string name="start_above_stop_error">Başlatma seviyesi durdurma seviyesinin altında olmalıdır!</string>
-    <string name="charge_control_footer_summary">Şarj kontrolü, uyarlanabilir şarjı engelleyebilir.</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Otomatik YPM</string>
     <string name="auto_hbm_main_switch_title">Otomatik HBM kullan</string>
@@ -37,10 +23,4 @@
     <string name="auto_hbm_enable_time_summary">HBM\'yi etkinleştirmek için ışık eşiğinin sürekli olarak karşılanması gereken saniye cinsinden süre</string>
     <string name="auto_hbm_disable_time_title">Zamanı devre dışı bırak</string>
     <string name="auto_hbm_disable_time_summary">Işık eşiği ayarlanan seviyenin altına düştüğünde HBM\'nin devre dışı bırakıldığı saniye cinsinden süre</string>
-    <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Değer: <xliff:g id="v">%s</xliff:g></string>
-    <string name="custom_seekbar_default_value">varsayılan olarak</string>
-    <string name="custom_seekbar_default_value_to_set">Varsayılan değer: <xliff:g id="v">%s</xliff:g>\nAyarlamak için uzun dokunun</string>
-    <string name="custom_seekbar_default_value_is_set">Varsayılan değer ayarlandı</string>
-    <!-- Image preview -->
 </resources>

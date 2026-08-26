@@ -7,26 +7,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- PixelParts -->
     <string name="pixel_parts_title">Частини пікселів</string>
-    <string name="kernel_node_access_error">Не вдалося отримати доступ до вузла ядра! Будь ласка, переконайтеся, що наданий шлях до атрибуту sysfs або procfs є точним, що він має відповідні дозволи, і правила SELinux належним чином налаштовані.</string>
-    <string name="kernel_node_returned_value_unknown">Не знайдено рядкового ресурсу для значення, яке повернуло вузол.</string>
     <string name="tile_add">Додати плитку</string>
     <string name="tile_added">Цю плитку додано</string>
     <string name="tile_not_added">Плитку не додано</string>
     <string name="tile_already_added">Плитку вже додано</string>
     <string name="tile_on">Увімкнено</string>
     <string name="tile_off">Вимкнено</string>
-    <string name="tile_camera_in_use">Використовується камера</string>
-    <!-- Charge control -->
-    <string name="charge_control_title">Відсоткове керування зарядом</string>
-    <string name="charge_control_summary">Контролювати коли пристрій припиняє роботу та запускається заряджання</string>
-    <string name="charge_control_main_switch_title">Використовуйте контроль заряду зі відсотками</string>
-    <string name="stop_charging_title">Рівень зупинки зарядки</string>
-    <string name="stop_charging_summary">Припинити заряджання при досягненні відсотка</string>
-    <string name="start_charging_title">Почати заряджання</string>
-    <string name="start_charging_summary">Продовжити заряджання при досягненні відсотка</string>
-    <string name="stop_below_start_error">Рівень зупинки повинен бути вище початкового рівня!</string>
-    <string name="start_above_stop_error">Початковий рівень повинен бути нижче рівня зупинки!</string>
-    <string name="charge_control_footer_summary">Контроль заряду може заважати адаптаційному заряду.</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Автоматична HBM</string>
     <string name="auto_hbm_main_switch_title">Використовувати автоматичний HBM</string>
@@ -37,10 +23,4 @@
     <string name="auto_hbm_enable_time_summary">Тривалість у секундах, протягом якої поріг світла має постійно досягатися, щоб активувати HBM</string>
     <string name="auto_hbm_disable_time_title">Вимкнути час</string>
     <string name="auto_hbm_disable_time_summary">Тривалість у секундах, протягом якої HBM вимикається, якщо поріг освітленості падає нижче встановленого рівня</string>
-    <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Значення: <xliff:g id="v">%s</xliff:g></string>
-    <string name="custom_seekbar_default_value">за замовчуванням</string>
-    <string name="custom_seekbar_default_value_to_set">Значення за замовчуванням: <xliff:g id="v">%s</xliff:g>\nУтримуйте для встановлення</string>
-    <string name="custom_seekbar_default_value_is_set">Значення за замовчуванням встановлено</string>
-    <!-- Image preview -->
 </resources>

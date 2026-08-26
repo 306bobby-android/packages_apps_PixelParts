@@ -8,27 +8,13 @@
 
     <!-- PixelParts -->
     <string name="pixel_parts_title">Pixel Parts</string>
-    <string name="kernel_node_access_error">Kernel node access failed! Please ensure the provided path to the sysfs or procfs attribute is accurate, that it has appropriate permissions, and the SELinux policies are properly configured.</string>
-    <string name="kernel_node_returned_value_unknown">No string resource found for the value returned by the node.</string>
     <string name="tile_add">Add tile</string>
     <string name="tile_added">Tile added</string>
     <string name="tile_not_added">Tile not added</string>
     <string name="tile_already_added">Tile already added</string>
     <string name="tile_on">On</string>
     <string name="tile_off">Off</string>
-    <string name="tile_camera_in_use">Camera in use</string>
 
-    <!-- Charge control -->
-    <string name="charge_control_title">Percentage-based charge control</string>
-    <string name="charge_control_summary">Control when the device stops and starts charging</string>
-    <string name="charge_control_main_switch_title">Use percentage-based charge control</string>
-    <string name="stop_charging_title">Stop charging level</string>
-    <string name="stop_charging_summary">Stop charging when the set percentage is reached</string>
-    <string name="start_charging_title">Start charging level</string>
-    <string name="start_charging_summary">Resume charging when the set percentage is reached</string>
-    <string name="stop_below_start_error">Stop level must be above start level!</string>
-    <string name="start_above_stop_error">Start level must be below stop level!</string>
-    <string name="charge_control_footer_summary">Charge control may interfere with adaptive charging.</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">Automatic HBM</string>
     <string name="auto_hbm_main_switch_title">Use automatic HBM</string>
@@ -40,15 +26,6 @@
     <string name="auto_hbm_disable_time_title">Disable time</string>
     <string name="auto_hbm_disable_time_summary">Duration in seconds for which HBM is deactivated if the light threshold falls below the set level</string>
 
-
-
-    <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>
-    <string name="custom_seekbar_default_value">by default</string>
-    <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong tap to set</string>
-    <string name="custom_seekbar_default_value_is_set">Default value is set</string>
-
-    <!-- Image preview -->
     <!-- IMS -->
     <string name="ims_title">VoLTE, VoWiFi and 5G</string>
     <string name="ims_summary">Offer IMS features on carriers that have not certified them for this device</string>
@@ -57,6 +34,10 @@
     <string name="ims_sim_slot">SIM <xliff:g id="slot" example="1">%1$d</xliff:g></string>
     <string name="ims_sim_slot_carrier">SIM <xliff:g id="slot" example="1">%1$d</xliff:g> \u2014 <xliff:g id="carrier" example="Vodafone">%2$s</xliff:g></string>
     <string name="ims_no_sim_summary">Insert a SIM to configure IMS features.</string>
+    <string name="ims_footer_summary">These settings override what your carrier publishes for this device. Features may not work, or may work unreliably, on a network that has not been tested with this hardware. Turn a switch off to restore your carrier\'s own configuration.</string>
+    <string name="ims_warning_title">Emergency calls may be affected</string>
+    <string name="ims_warning_message">Forcing these features changes how emergency calls are placed and how your location is shared with emergency services.\n\nOn an untested network an emergency call may fail to connect, may be routed to the wrong centre, or may not carry your location. Your carrier has not certified this device for these features.\n\nIf you rely on this phone for emergency calls, leave this off.</string>
+    <string name="ims_warning_confirm">I understand</string>
     <string name="ims_restart_modem_title">Restart modem</string>
     <string name="ims_restart_modem_summary">Make the modem pick its carrier configuration again. Changing a switch above already does this; use it after an update adds configurations for your carrier.</string>
     <string name="ims_restart_modem_message">Your mobile network will disconnect for a few seconds. Any call in progress will be dropped.</string>

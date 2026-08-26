@@ -6,24 +6,21 @@
 
 package org.evolution.pixelparts.utils;
 
-import android.content.Context;
+import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
-import org.evolution.pixelparts.R;
-
-import android.util.Log;
-import android.os.Handler;
-import android.os.Looper;
-
-public class FileUtils {
+public final class FileUtils {
 
     private static final String TAG = FileUtils.class.getSimpleName();
+
+    private FileUtils() {
+    }
 
     /**
      * Reads the first line of text from the given file.
@@ -32,69 +29,42 @@ public class FileUtils {
      * @return the read line contents, or null on failure
      */
     public static String readOneLine(String fileName) {
-        String line = null;
-        BufferedReader reader = null;
-
-        try {
-            reader = new BufferedReader(new FileReader(fileName), 512);
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName), 512)) {
+            return reader.readLine();
         } catch (FileNotFoundException e) {
-            Log.w(TAG, "No such file " + fileName + " for reading", e);
+            Log.w(TAG, "No such file " + fileName + " for reading");
+            return null;
         } catch (IOException e) {
             Log.e(TAG, "Could not read from file " + fileName, e);
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                // Ignored, not much we can do anyway
-            }
-        }
-
-        return line;
-    }
-
-    /**
-     * Write a string value to the specified file.
-     * @param filename      The filename
-     * @param value         The value
-     */
-    public static void writeValue(String filename, String value) {
-        if (filename == null) {
-            Log.w(TAG, "Filename is null, write operation aborted.");
-            return;
-        }
-        // First, read the current value.
-        String currentValue = readOneLine(filename);
-        // Compare the current value with the value to be written.
-        if (!value.equals(currentValue)) {
-        Log.d(TAG, "Attempting to write to file: " + filename + " Value: " + value);
-            try (FileOutputStream fos = new FileOutputStream(new File(filename))) {
-                fos.write(value.getBytes());
-                fos.flush();
-                Log.d(TAG, "Write operation successful to file: " + filename);
-            } catch (FileNotFoundException e) {
-                Log.w(TAG, "FileNotFoundException when trying to write to file: " + filename, e);
-            } catch (IOException e) {
-                Log.e(TAG, "IOException when trying to write to file: " + filename, e);
-            }
+            return null;
         }
     }
 
     /**
-     * Returns the contents of the file with the given filename, or the specified default value if the file cannot be read.
+     * Writes a value to the given node, skipping the write when the node
+     * already holds it.
      *
-     * @param filename the name of the file to read
-     * @param defValue the default value to return if the file cannot be read
-     * @return the contents of the file as a String, or the default value if the file cannot be read
+     * @return true if the node holds the value once this returns
      */
-    public static String getFileValue(String filename, String defValue) {
-        String fileValue = readOneLine(filename);
-        if (fileValue != null) {
-            return fileValue;
+    public static boolean writeValueIfChanged(String fileName, String value) {
+        if (fileName == null) {
+            Log.w(TAG, "Filename is null, write operation aborted");
+            return false;
         }
-        return defValue;
+        if (value.equals(readOneLine(fileName))) {
+            return true;
+        }
+        try (FileOutputStream fos = new FileOutputStream(new File(fileName))) {
+            fos.write(value.getBytes());
+            fos.flush();
+            return true;
+        } catch (FileNotFoundException e) {
+            Log.w(TAG, "No such file " + fileName + " for writing");
+            return false;
+        } catch (IOException e) {
+            Log.e(TAG, "Could not write to file " + fileName, e);
+            return false;
+        }
     }
 
     /**
@@ -103,27 +73,6 @@ public class FileUtils {
      * @return true if exists, false if not
      */
     public static boolean fileExists(String fileName) {
-        final File file = new File(fileName);
-        return file.exists();
-    }
-
-    /**
-     * Checks whether the given file is readable
-     *
-     * @return true if readable, false if not
-     */
-    public static boolean isFileReadable(String fileName) {
-        final File file = new File(fileName);
-        return file.exists() && file.canRead();
-    }
-
-    /**
-     * Checks whether the given file is writable
-     *
-     * @return true if writable, false if not
-     */
-    public static boolean isFileWritable(String fileName) {
-        final File file = new File(fileName);
-        return file.exists() && file.canWrite();
+        return new File(fileName).exists();
     }
 }

@@ -7,26 +7,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- PixelParts -->
     <string name="pixel_parts_title">Pixel Parts</string>
-    <string name="kernel_node_access_error">Accesso al nodo kernel fallito! Assicurati che il percorso fornito per l\'attributo sysfs o procfs sia accurato, che abbia le autorizzazioni appropriate e che le politiche SELinux siano configurate correttamente.</string>
-    <string name="kernel_node_returned_value_unknown">Nessuna stringa trovata per il valore restituito dal nodo.</string>
     <string name="tile_add">Aggiungi riquadro</string>
     <string name="tile_added">Riquadro aggiunto</string>
     <string name="tile_not_added">Riquadro non aggiunto</string>
     <string name="tile_already_added">Riquadro già presente</string>
     <string name="tile_on">Abilitato</string>
     <string name="tile_off">Disabilitato</string>
-    <string name="tile_camera_in_use">Fotocamera in uso</string>
-    <!-- Charge control -->
-    <string name="charge_control_title">Controllo della ricarica basato sulla percentuale</string>
-    <string name="charge_control_summary">Controlla quando il dispositivo avvia o ferma la ricarica</string>
-    <string name="charge_control_main_switch_title">Controlla la ricarica sulla base della percentuale</string>
-    <string name="stop_charging_title">Livello di arresto ricarica</string>
-    <string name="stop_charging_summary">Ferma la ricarica quando viene raggiunta la percentuale impostata</string>
-    <string name="start_charging_title">Livello di inizio ricarica</string>
-    <string name="start_charging_summary">Riprendi la ricarica quando viene raggiunta la percentuale impostata</string>
-    <string name="stop_below_start_error">Il livello di arresto deve essere superiore al livello di avvio!</string>
-    <string name="start_above_stop_error">Il livello di avvio deve essere inferiore al livello di arresto!</string>
-    <string name="charge_control_footer_summary">Il controllo della carica può interferire con la ricarica adattativa.</string>
     <!-- Auto hbm -->
     <string name="auto_hbm_title">HBM automatica</string>
     <string name="auto_hbm_main_switch_title">Usa HBM automatica</string>
@@ -37,10 +23,4 @@
     <string name="auto_hbm_enable_time_summary">Durata in secondi in cui la soglia di luce deve essere costantemente soddisfatta per attivare HBM</string>
     <string name="auto_hbm_disable_time_title">Disabilita orario</string>
     <string name="auto_hbm_disable_time_summary">Durata in secondi per i quali HBM è disattivata se la soglia di luce scende al di sotto del livello impostato</string>
-    <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Valore: <xliff:g id="v">%s</xliff:g></string>
-    <string name="custom_seekbar_default_value">valore predefinito</string>
-    <string name="custom_seekbar_default_value_to_set">Valore predefinito: <xliff:g id="v">%s</xliff:g>\nTieni premuto per impostare</string>
-    <string name="custom_seekbar_default_value_is_set">Valore predefinito impostato</string>
-    <!-- Image preview -->
 </resources>
