@@ -9,7 +9,6 @@ package org.evolution.pixelparts;
 import android.app.Application;
 
 import org.evolution.pixelparts.autohbm.AutoHbmController;
-import org.evolution.pixelparts.ims.ImsController;
 
 /**
  * Entry point for the persistent PixelParts process.
@@ -18,6 +17,11 @@ import org.evolution.pixelparts.ims.ImsController;
  * screen, which is what the application process is for. Doing it here rather
  * than in a started service means there is no separate notion of "is the
  * service running" to fall out of step with the user setting.
+ *
+ * <p>The IMS listener is deliberately not started here. onCreate runs in the
+ * system uid before the user unlocks, and registering a subscription listener
+ * that early bootloops the device once a subscription actually exists. It is
+ * started from {@link Startup} on BOOT_COMPLETED instead.
  *
  * <p>The application is deliberately not android:persistent. A persistent
  * app that throws during onCreate is restarted by the activity manager
@@ -32,9 +36,5 @@ public class PixelPartsApp extends Application {
         super.onCreate();
 
         AutoHbmController.getInstance(this).start();
-
-        if (ImsController.isSupported(this)) {
-            ImsController.getInstance(this).start();
-        }
     }
 }

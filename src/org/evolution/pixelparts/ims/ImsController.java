@@ -65,14 +65,23 @@ public final class ImsController {
 
     /** Re-applies the user's choice when subscriptions change. */
     public void start() {
-        final Executor executor = Executors.newSingleThreadExecutor();
-        mSubscriptionManager.addOnSubscriptionsChangedListener(executor,
-                new SubscriptionManager.OnSubscriptionsChangedListener() {
-                    @Override
-                    public void onSubscriptionsChanged() {
-                        restoreAll();
-                    }
-                });
+        // This runs in the system uid, so an escaping exception is expensive.
+        try {
+            final Executor executor = Executors.newSingleThreadExecutor();
+            mSubscriptionManager.addOnSubscriptionsChangedListener(executor,
+                    new SubscriptionManager.OnSubscriptionsChangedListener() {
+                        @Override
+                        public void onSubscriptionsChanged() {
+                            try {
+                                restoreAll();
+                            } catch (RuntimeException e) {
+                                Log.e(TAG, "Could not restore IMS overrides", e);
+                            }
+                        }
+                    });
+        } catch (RuntimeException e) {
+            Log.e(TAG, "Could not listen for subscription changes", e);
+        }
     }
 
     /** Whether the modem can be restarted without rebooting. */
