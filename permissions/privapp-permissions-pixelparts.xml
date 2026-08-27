@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2024 The Evolution X Project
+                   2024 crDroid Android Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<!--
+     A privileged app must be listed here for every privileged permission it
+     requests, even when it is platform signed - AOSP's own platform signed
+     apps are listed in privapp-permissions-platform.xml for the same reason.
+     Without this, ro.control_privapp_permissions=enforce fails the scan and
+     takes system_server down with it on a first boot.
+-->
+<permissions>
+    <privapp-permissions package="org.evolution.pixelparts">
+        <permission name="android.permission.MODIFY_PHONE_STATE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+    </privapp-permissions>
+</permissions>

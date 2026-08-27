@@ -13,6 +13,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.pixelparts.rc
 
+# PixelParts privileged permission allowlist. Required even though the app is
+# platform signed; without it the first boot fails under
+# ro.control_privapp_permissions=enforce.
+PRODUCT_COPY_FILES += \
+    packages/apps/PixelParts/permissions/privapp-permissions-pixelparts.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-pixelparts.xml
+
 # PixelParts sepolicy
 BOARD_SEPOLICY_DIRS += packages/apps/PixelParts/sepolicy
 
