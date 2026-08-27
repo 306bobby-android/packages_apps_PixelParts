@@ -41,12 +41,5 @@ public class Startup extends BroadcastReceiver {
                 ImsController.isSupported(context)
         );
 
-        // Only once the user has unlocked. Registering the subscription
-        // listener before that runs in the system uid during early boot and
-        // bootloops the device when a subscription is present.
-        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())
-                && ImsController.isSupported(context)) {
-            ImsController.getInstance(context).start();
-        }
     }
 }

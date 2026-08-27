@@ -41,6 +41,11 @@ public class ImsFragment extends SettingsBasePreferenceFragment {
         setPreferencesFromResource(R.xml.ims, rootKey);
         mController = ImsController.getInstance(getContext());
 
+        // Nothing touches telephony until the user opens this screen. Doing it
+        // from Application.onCreate ran in the system uid before unlock, on a
+        // first boot where telephony is not up yet, and bootlooped the device.
+        mController.start();
+
         final Preference restart = findPreference(KEY_RESTART_MODEM);
         if (restart != null) {
             // The modem only notices a new configuration when it re-selects.

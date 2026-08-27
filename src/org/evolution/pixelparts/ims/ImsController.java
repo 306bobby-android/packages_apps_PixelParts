@@ -63,8 +63,15 @@ public final class ImsController {
                 android.content.pm.PackageManager.FEATURE_TELEPHONY_SUBSCRIPTION);
     }
 
-    /** Re-applies the user's choice when subscriptions change. */
+    private boolean mStarted;
+
+    /** Re-applies the user's choice when subscriptions change. Called when the
+     * IMS screen is opened, never from boot. */
     public void start() {
+        if (mStarted) {
+            return;
+        }
+        mStarted = true;
         // This runs in the system uid, so an escaping exception is expensive.
         try {
             final Executor executor = Executors.newSingleThreadExecutor();
